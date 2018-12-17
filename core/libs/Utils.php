@@ -2,7 +2,7 @@
 
 namespace core\libs;
 
-use core\base\Application;
+//use core\base\Application;
 
 /**
  * Служебные методы
@@ -12,8 +12,9 @@ use core\base\Application;
 class Utils {
     
     /**
-     * Возвращает путь к корню приложения на сервере
-     * @return type string
+     * Возвращает путь к корню приложения в файловой системе на сервере
+     *
+     * @return string
      */
     public static function getRoot() {
          return filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');   
@@ -21,31 +22,34 @@ class Utils {
     
     /**
      * Возвращает часть url без строки параметров
-     * @return type ыекштп
+     *
+     * @return string
      */
     public static function getUrl() {
-       $r1 = trim(filter_input(INPUT_SERVER, 'REQUEST_URI'), '/');
-       $r2 = str_replace(filter_input(INPUT_SERVER, 'QUERY_STRING'), '', $r1);
-       $result = trim(trim($r2, '?'), '/');
-       return $result;
+        $r = trim(filter_input(INPUT_SERVER, 'REQUEST_URI'), '/');
+        $result = trim(substr($r, 0, strpos($r, '?')), '/');
+        return $result;
     }
  
     /**
      * Возвращает строку параметров
-     * @return type string
+     *
+     * @return string
      */
     public static function getQueryString() {
-        return filter_input(INPUT_SERVER, 'QUERY_STRING');
+        $r = filter_input(INPUT_SERVER, 'REQUEST_URI');
+        $result = substr($r, strpos($r, '?')+1);
+        return $result;
     }
     
-    public static function redirect($url = false) {
-        if ($url) {
-            $redirect = $url;
-        } else {
-            $referer = filter_input(INPUT_SERVER, 'HTTP_REFERER');
-            $redirect = isset($referer) ? filter_input(INPUT_SERVER, 'HTTP_REFERER') : Application::getConfig()->dirs->root;
-        }
-        header("Location: $redirect");
-        exit;
-    }
+//    public static function redirect($url = false) {
+//        if ($url) {
+//            $redirect = $url;
+//        } else {
+//            $referer = filter_input(INPUT_SERVER, 'HTTP_REFERER');
+//            $redirect = isset($referer) ? filter_input(INPUT_SERVER, 'HTTP_REFERER') : Application::getConfig()->dirs->root;
+//        }
+//        header("Location: $redirect");
+//        exit;
+//    }
 }
