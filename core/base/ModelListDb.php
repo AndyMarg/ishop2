@@ -1,9 +1,7 @@
 <?php
 
-use core\base\ModelList;
-use core\base\Application;
-
 namespace core\base;
+
 
 /**
  * Список моделей из ДБ
@@ -12,10 +10,11 @@ class ModelListDb extends ModelList {
 
     private $options = [];      // свойства модели
     private $source = [];       // данные из базы в виде массива (индексирован по порядку)
-    
+
     /**
-     * КОНСТРУКТОР
+     * ModelListDb constructor.
      * @param array $options Настройки модели (sql и т.д.)
+     * @throws \Exception
      */
     public function __construct(array $options) {
         $this->options = $options;
@@ -33,13 +32,16 @@ class ModelListDb extends ModelList {
         }
         parent::__construct($this->source, $options['class'] );
     }
-    
+
     /**
      * Загружаем данные списка моделей из БД
+     *
+     * @return object
+     * @throws \Exception
      */
     private function load() {
         if (!key_exists('sql', $this->options) || empty($this->options['sql'])) {
-            throw new Exception("Not defined SQL for model list");
+            throw new \Exception("Not defined SQL for model list");
         }
         $sql = $this->options['sql'];
         $params = [];
@@ -52,9 +54,10 @@ class ModelListDb extends ModelList {
     /**
      * Возвращает массив данных из базы
      * @param bool $indexedById  Индексировать массив идентификаторами данных из базы
-     * @return type Массив данных из базы
+     * @return array Массив данных из базы
      */
     public function asArray(bool $indexedById = false) {
+        $temp =[];
         if ($indexedById) {
             foreach ($this->source as $item) {
                 $temp[$item['id']] = $item;

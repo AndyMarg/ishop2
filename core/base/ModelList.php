@@ -35,8 +35,8 @@ class ModelList implements IteratorAggregate {
     /**
      * Поиск объекта модели в списке
      * @param string $name Аттрибут объекта модели
-     * @param type $value Значание аттрибута объекта 
-     * @return Объект модели, если найден, иначе false
+     * @param mixed $value Значание аттрибута объекта
+     * @return mixed Объект модели, если найден, иначе false
      */
     public function search(string $name, $value) {
         foreach ($this->items as $item) {
@@ -49,8 +49,8 @@ class ModelList implements IteratorAggregate {
 
     /**
      * Получить объект модели по индексу
-     * @param type $index
-     * @return type
+     * @param int $index
+     * @return object
      */
     public function at($index) {
         return $this->items[$index];
@@ -58,7 +58,7 @@ class ModelList implements IteratorAggregate {
     
     /**
      * true, если список пуст, иначе false
-     * @return type
+     * @return bool
      */
     public function isEmpty() {
         return empty($this->items);
@@ -66,7 +66,7 @@ class ModelList implements IteratorAggregate {
     
     /**
      * Количество объектов в списке
-     * @return type
+     * @return int
      */
     public function count() {
         return count($this->items);
@@ -74,8 +74,8 @@ class ModelList implements IteratorAggregate {
 
     /**
      * Доступ к несуществующему свойству объекта
-     * @param type $property Часть имени публичного метода get{$Property}()
-     * @return mix Результат вызова метода 
+     * @param string type $property Часть имени публичного метода get{$Property}()
+     * @return mixed Результат вызова метода
      * @throws \Exception Если такого метода не существует
      */
     public function __get($property) {

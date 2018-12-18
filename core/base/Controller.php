@@ -9,8 +9,9 @@ abstract class Controller {
     
     // маршрут к контроллеру
     private $route;
+
     // текущее представление
-    private $view = null;
+    private $view;
     
     public function __construct($route) {
         $this->route = $route;
@@ -37,7 +38,8 @@ abstract class Controller {
     
     /**
      * True, если запрос ajax
-     * @return type
+     *
+     * @return bool
      */
     protected function isAjax() {
         $is_ajax = filter_input(INPUT_SERVER, 'HTTP_X_REQUESTED_WITH');
@@ -47,7 +49,7 @@ abstract class Controller {
     /**
      * Выдаем ошибку ajax
      * @param string $message
-     * @param type $errorCode
+     * @param int $errorCode
      */
     protected function errorAjax(string $message, $errorCode = 1000) {
             header('HTTP/1.1 500 Internal Server Error');
@@ -57,6 +59,7 @@ abstract class Controller {
     
     /**
      * Вызываем метод действия в соответствии с маршрутом для подготовки данных для представления
+     *
      * @throws \Exception
      */
     private function callAction() {
