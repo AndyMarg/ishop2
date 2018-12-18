@@ -33,10 +33,11 @@ return
             ]
         ],
         "db" => [
-            "dsn" => "mysql=>host=localhost;dbname=ishop;charset=utf8",
-            "user" => "root",
+            "dsn" => "mysql:host=localhost;dbname=ishop;charset=utf8",
+            "user" => "marg",
             "pass" => "letmedoit",
-            "debug" => true],
+            "debug" => true
+        ],
         "defaults" => [
             "layout" => "watches"
         ],

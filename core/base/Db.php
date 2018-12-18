@@ -7,7 +7,7 @@ use core\libs\TSingleton;
 /**
  * Менеджер БД
  */
-class db {
+class Db {
     private $db;
     private $log = [];
             
@@ -18,8 +18,8 @@ class db {
      */
     public function Init() {
         $opt = [
-            \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
-            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
+            \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,   // выбрасывание исключений, вместо просто возврата ошибки
+            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC          // результвт в виде ассоциативного массива
         ];
         $config = Application::getConfig();
         $this->db = new \PDO($config->db->dsn, $config->db->user, $config->db->pass, $opt);
@@ -30,7 +30,7 @@ class db {
      * 
      * @param string $sql   SQL
      * @param array $params Параметры 
-     * @return type Массив записей
+     * @return object Массив записей
      */
     public function query(string $sql, array $params = []) {
         // добавляем параметры для IN(), если есть
@@ -46,11 +46,10 @@ class db {
     /**
      * Логгирование запросов
      * 
-     * @param type $sql  SQL
-     * @param type $params Параметры запроса
-     * @param type $in_params Массив параметров для IN()
+     * @param string $sql  SQL
+     * @param array $params Параметры запроса
      */
-    private function addLog(string $sql, array $params = null, $in_params = null) {
+    private function addLog(string $sql, array $params = null) {
         $log['sql'] = $sql;
         if ($params) {
             $log['params'] = $params;
@@ -61,10 +60,9 @@ class db {
     /**
      * Добавляет параметры для IN(), если есть
      * Модифицирует и строку SQL и массив параметров
-     * @param type $sql SQL
-     * @param type $params Параметры
-     * @return type
-     */
+     * @param string $sql SQL
+     * @param array $params Параметры
+    */
     private function expandQuery(&$sql, &$params = null) {
         if (!$params) { return; }
         foreach ($params as $name => $value) {
@@ -85,7 +83,7 @@ class db {
 
     /**
      * Вернуть лог запросов
-     * @return type Массив лога запросов
+     * @return array Массив лога запросов
      */
     public function getLog() {
         return $this->log;
