@@ -16,10 +16,11 @@ abstract class Widget {
             
     private $cache_key_prefix = 'widget';
     private $cachePeriod = false;
-        
+
     /**
      * Конструктор
      * @param string $name Имя виджета
+     * @param array $options Массив значений ппеременых виджета
      */
     public function __construct(string $name, $options = []) {
         $this->name = $name;
@@ -36,7 +37,7 @@ abstract class Widget {
     
     /**
      * Возвращает имя виджета
-     * @return type
+     * @return string
      */
     public function getName() {
         return $this->name;
@@ -44,7 +45,7 @@ abstract class Widget {
     
     /**
      * Установить данные для виджета
-     * @param type $data
+     * @param array $data
      */
     protected function setData($data) {
         $this->data = $data;
@@ -52,7 +53,7 @@ abstract class Widget {
 
     /**
      * Получить данные для виджета
-     * @param type $data
+     * @return array
      */
     protected function getData() {
         return $this->data;
@@ -60,7 +61,7 @@ abstract class Widget {
     
     /**
      * Возвращает путь к основному шаблону виджете
-     * @return type
+     * @return string
      */
     protected function getTpl() {
         return $this->tpl;
@@ -85,7 +86,7 @@ abstract class Widget {
 
     /**
      * Возвращаем html разметку виджета
-     * @return type
+     * @return string
      */
     private function getHtml() {
         // сформировать локальные переменные
@@ -112,7 +113,7 @@ abstract class Widget {
      
      /**
       * Возвращает разметку html из кэша
-      * @return mixed
+      * @return string
       */
      private function htmlFromCache() {
          $content = Cache::load('widget_' . $this->name);

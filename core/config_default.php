@@ -17,9 +17,9 @@ return
             "views" => "/app/views",
             "layouts" => "/app/views/layouts",
             "widgets" => "/app/widgets",
-            "widget_controllers" => "/app/widgets/[widget]/controllers",
-            "widget_tpls" => "/app/widgets/[widget]/tpl",
-            "widget_scripts" => "/app/widgets/[widget]/js"
+            "widget_controllers" => "/app/widgets/{widget}/controllers",
+            "widget_tpls" => "/app/widgets/{widget}/tpl",
+            "widget_scripts" => "/app/widgets/{widget}/js"
         ],
         "errors" => [
             "log" => "/logs/errors/errors.log",

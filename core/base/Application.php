@@ -2,13 +2,15 @@
 
 namespace core\base;
 
+use core\libs\Utils;
+
 /**
  * Класс приложения.
  * Только статические методы.
  */
 class Application {
     
-//    private static $router;
+    private static $router;
     private static $db;
 
     /**
@@ -44,13 +46,13 @@ class Application {
         return self::$db;
     }
 
-//    /**
-//     * Вернуть объект роутера
-//     * @return type object Router
-//     */
-//    public static function getRouter() {
-//        return self::$router;
-//    }
+    /**
+     * Вернуть объект роутера
+     * @return Router
+     */
+    public static function getRouter() {
+        return self::$router;
+    }
 
     /**
      * Инициализирует приложение.
@@ -74,11 +76,11 @@ class Application {
         self::$db = Db::getInstance();
         self::$db->Init();
 
-//        // инициализируем роутер
-//        self::$router = Router::getInstance();
-//        self::$router->Init();
-//        // передаем запрос на обработку маршрутизатору
-//        self::$router->dispatch(Utils::getUrl());
+        // инициализируем роутер
+        self::$router = Router::getInstance();
+        self::$router->Init();
+        // передаем запрос на обработку маршрутизатору
+        self::$router->dispatch(Utils::getUrl());
     }
     
 } 

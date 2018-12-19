@@ -28,8 +28,7 @@ class Utils {
      */
     public static function getUrl() {
         $r = trim(filter_input(INPUT_SERVER, 'REQUEST_URI'), '/');
-        $result = trim(substr($r, 0, strpos($r, '?')), '/');
-        return $result;
+        return strpos($r, '?') !== false ?  trim(substr($r, 0, strpos($r, '?')), '/') : $r;
     }
  
     /**

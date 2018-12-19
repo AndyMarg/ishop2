@@ -19,7 +19,12 @@ class View {
     private $layout;
     // js скрипты 
     private $scripts = [];
-    
+
+    /**
+     * View constructor.
+     * @param Controller $controller  контроллер - владелец вида
+     * @param string $layout Имя шаблона
+     */
     public function __construct(Controller $controller, $layout = '') {
         $config = Application::getConfig();
         $this->controller = $controller;
@@ -43,7 +48,7 @@ class View {
 
     /**
      * Установить массив переменных для view
-     * @param type $data
+     * @param array $data
      */  
     public function setData($data) { $this->data = $data; }
     
@@ -95,7 +100,7 @@ class View {
     
     /**
      * Возвращает путь к предсталениz в файловой системе
-     * @return type
+     * @return string
      */
     private function getViewFilePath() {
         $config = Application::getConfig();
@@ -107,28 +112,28 @@ class View {
     
     /**
      * Возвращает путь к шаблону html в файловой системе
-     * @return type
+     * @return string
      */
     private function getLyaoutFilePath() {
         $config = Application::getConfig();
         return Utils::getRoot() . $config->dirs->layouts . '/' . $this->layout . '.php';
     }
-    
+
     /**
      * Возвращает html-разметку метаданных
-     * @return type
+     * @return string
      */
-    private function getMetaHtml()   {
-        return 
+    protected function getMetaHtml()   {
+        return
             "<title>{$this->meta['title']}</title>" . PHP_EOL .
             "<meta name=\"description\" content=\"{$this->meta['description']}\">" . PHP_EOL .
             "<meta name=\"keywords\" content=\"{$this->meta['keywords']}\">\n" . PHP_EOL;
     }
-    
+
     /**
      * Вырезаем скрипты и помещаем в массив $this->scripts
-     * @param type $content
-     * @return type
+     * @param string $content
+     * @return string
      */
     private function cutScripts($content) {
         $pattern = "#<script.*?>.*?</script>#si";

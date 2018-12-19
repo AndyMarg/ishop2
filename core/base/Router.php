@@ -60,7 +60,7 @@ class Router {
     
     /**
      * Деспетчиризуем url на вызов метода контроллера
-     * @param type $uri
+     * @param string $uri
      * @throws \Exception
      */
     public function dispatch($uri) {
@@ -85,7 +85,7 @@ class Router {
     
     /**
      * Формируем маршрут [controller, action] на основе совпадения uri с шаблоном регулярки
-     * @param type $uri
+     * @param string $uri
      * @return boolean true, если совпадение в таблице маршрутов найдено
      */
     private function matchRoute($uri) {
@@ -115,7 +115,7 @@ class Router {
      * Перевод строки, разделенной "-" в CamelCase с удалением "-" 
      * @param string $name
      * @param bool $firstCharLower Если true - первый символ в нижнем регистре
-     * @return type string
+     * @return string string
      */
     private function toCamelCase(string $name, bool $firstCharLower = false) {
         $result = str_replace('-', '', ucwords($name, '-'));
@@ -125,8 +125,8 @@ class Router {
     
     /**
      * True, если это контроллер виджета
-     * @param type $controller
-     * @return type
+     * @param string $controller Имя контроллера
+     * @return bool
      */
     private function isWidget($controller) {
         return in_array(strtolower($controller), Application::getConfig()->widgets->asArray());
