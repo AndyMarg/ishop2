@@ -1,14 +1,13 @@
 // product modifications changed
 $('.available select').on('change', function() {
-    var price = $(this).find('option').filter(':selected').data('price');
-    var base_price = $('#main-price').data('base');
+    let price = $(this).find('option').filter(':selected').data('price');
+    let base_price = $('#main-price').data('base');
     if (price) {
         $('#main-price span').text(price);
     } else {
         $('#main-price span').text(base_price);
     }
 });
-
 
 /*
  * Функции корзины 
@@ -18,13 +17,13 @@ $('.available select').on('change', function() {
 $('body').on('click', '.add-to-cart-link', function (e) {
     e.preventDefault();
     // получить значения
-    var to_cart_product_id = $(this).data('id');           // ид продукта, добавляемого в корзину
-    var current_product_id = $('#product-add').data('id'); // ид продукта, отображаемого на странице продукта  
-    var quantity = $('.quantity input').val();             // количество товаров в звказе
+    let to_cart_product_id = $(this).data('id');           // ид продукта, добавляемого в корзину
+    let current_product_id = $('#product-add').data('id'); // ид продукта, отображаемого на странице продукта
+    let quantity = $('.quantity input').val();             // количество товаров в звказе
     if (!quantity || to_cart_product_id !== current_product_id) { 
         quantity = 1;
     }
-    var modifier = $('.available select').find('option').filter(':selected').val(); // модификатор (разновидность) товара
+    let modifier = $('.available select').find('option').filter(':selected').val(); // модификатор (разновидность) товара
     if (!modifier || to_cart_product_id !== current_product_id) { 
         modifier = 0;
     }

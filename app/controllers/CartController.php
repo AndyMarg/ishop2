@@ -36,8 +36,7 @@ class CartController extends AppController {
         // добавляем товар в корзину
         $cart = Cart::getInstance();
         $cart->addProduct($product, $quantity, $modification);
-//        print_r($cart->asArray()); die;
-        
+
         $this->getView()->setData(compact('cart'));
     }
 
