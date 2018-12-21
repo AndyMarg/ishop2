@@ -11,15 +11,36 @@
                 </row>
             </thead>
             <tbody>
-                
+                <?php foreach ($cart->products as $id => $product): ?>
+                    <tr>
+                        <td><a href="product/<?=$product['alias']?>"><img class="cart-image" src="images/<?=$product['img']?>" alt=""></a></td>
+                        <td><a href="product/<?=$product['alias']?>"><?=$product['title']?></a></td>
+                        <td><?=$product['quantity']?></td>
+                        <td>
+                            <?= $currency->symbol_left?>
+                            <?=$product['price']?>
+                            <?= $currency->symbol_right?>
+                        </td>
+                        <td><span data-id="<?=$id?>" class="glyphicon glyphicon-remove text-danger delete-product" aria-hidden="true"></span></td>
+                    </tr>
+                <?php endforeach; ?>
+                <tr>
+                    <td>Итого:</td>
+                    <td colspan="4" class="text-right cart-quantity"><?=$cart->quantity?></td>
+                </tr>
+                <tr>
+                    <td>На сумму:</td>
+                    <td colspan="4" class="text-right cart-sum">
+                        <?= $currency->symbol_left?>
+                        <?=$cart->sum?>
+                        <?= $currency->symbol_right?>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
 <?php else: ?>
     <h3 id="cart_is_empty">Корзина пуста</h3>
 <?php endif; ?>
-
-
-
 
 

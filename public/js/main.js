@@ -43,11 +43,9 @@ $('body').on('click', '.add-to-cart-link', function (e) {
     // отобразить корзину
     function showCart(cart) {
        if ($(cart).filter('#cart_is_empty').length > 0) {
-           $('#cart-btn-order').css('display', 'none');
-           $('#cart-btn-clear').css('display', 'none');
+           $('#cart-btn-order, #cart-btn-clear').css('display', 'none');
        } else {
-           $('#cart-btn-order').css('display', 'inline-block');
-           $('#cart-btn-clear').css('display', 'inline-block');
+           $('#cart-btn-order, #cart-btn-clear').css('display', 'inline-block');
        }
        $('#cart .modal-body').html(cart);
        $('#cart').modal();

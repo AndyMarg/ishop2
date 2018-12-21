@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Cart;
+use app\models\Currencies;
 use app\models\Modification;
 use app\models\Product;
 use core\libs\Utils;
@@ -37,7 +38,10 @@ class CartController extends AppController {
         $cart = Cart::getInstance();
         $cart->addProduct($product, $quantity, $modification);
 
-        $this->getView()->setData(compact('cart'));
+        // текущая валюта
+        $currency = (new Currencies())->current;
+
+        $this->getView()->setData(compact('cart', 'currency'));
     }
 
 }
