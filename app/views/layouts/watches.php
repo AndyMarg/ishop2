@@ -1,3 +1,8 @@
+<?php
+    $cart = app\models\Cart::getInstance();
+    $currency = (new app\models\Currencies())->current;
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,19 +43,24 @@
             </div>
             <div class="col-md-6 top-header-left">
                 <div class="cart box_1">
-                    <a href="checkout.html">
+                    <a href="cart/show" onclick="getCart(); return false;">
                         <div class="total">
-                            <span class="simpleCart_total"></span></div>
-                        <img src="images/cart-1.png" alt=""/>
+                            <img src="images/cart-1.png" alt=""/>
+                            <?php if (!$cart->products): ?>
+                                <span class="simpleCart_total"><?php echo $currency->symbol_left . $cart->sum . $currency->symbol_right ?></span>
+                            <?php else: ?>
+                                <span class="simpleCart_total">Корзина пуста</span>
+                            <?php endif; ?>
+                        </div>
                     </a>
-                    <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
-                    <div class="clearfix"></div>
                 </div>
+                <div class="clearfix"></div>
             </div>
-            <div class="clearfix"></div>
         </div>
+        <div class="clearfix"></div>
     </div>
 </div>
+
 <!--top-header-->
 <!--start-logo-->
 <div class="logo">
@@ -199,6 +209,7 @@ if (core\base\Application::getConfig()->db->debug) {
 <script type="application/x-javascript"> addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
     }, false);
+
     function hideURLbar() {
         window.scrollTo(0, 1);
     }

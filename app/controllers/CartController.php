@@ -44,4 +44,51 @@ class CartController extends AppController {
         $this->getView()->setData(compact('cart', 'currency'));
     }
 
+    /**
+     * Получить корзину
+     */
+    public function showAction() {
+        if (!$this->isAjax()) {
+            Utils::redirect();
+        }
+        $cart = Cart::getInstance();
+        $currency = (new Currencies())->current;
+        $this->getView()->setData(compact('cart', 'currency'));
+    }
+
+    /**
+     * Удалить товар из корзины
+     */
+    public function deleteAction()
+    {
+        if (!$this->isAjax()) {
+            Utils::redirect();
+        }
+        $product_id = (int) filter_input(INPUT_GET, 'id');
+        $cart = Cart::getInstance();
+        $products = $cart->products;
+        $delta = $products[$product_id]['price'] * $products[$product_id]['quantity'];
+        $cart->sum -= $delta;
+        $cart->quantity -= $products[$product_id]['quantity'];
+        unset($products[$product_id]);
+        $cart->products = $products;
+        $currency = (new Currencies())->current;
+        $this->getView()->setData(compact('cart', 'currency'));
+    }
+
+    /**
+     * Очистить корзину
+     */
+    public function clearAction()
+    {
+        if (!$this->isAjax()) {
+            Utils::redirect();
+        }
+        $cart = Cart::getInstance();
+        $cart->products = [];
+        $cart->sum = 0;
+        $cart->quantity = 0;
+        $currency = (new Currencies())->current;
+        $this->getView()->setData(compact('cart', 'currency'));
+    }
 }

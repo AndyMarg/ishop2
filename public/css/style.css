@@ -3116,9 +3116,12 @@ ul.tag-men {
 }
 
 #main-price {
-    
 }
 
 .cart-image {
 	height: 50px;
+}
+
+.delete-product {
+    cursor: pointer;
 }
