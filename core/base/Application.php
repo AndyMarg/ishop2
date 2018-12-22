@@ -56,7 +56,6 @@ class Application {
 
     /**
      * Инициализирует приложение.
-     *
      * @param string $app_root Корень приложения в файловой системе
      * @param string $app_config_file Файл с конфигурационными параметрами.
      */

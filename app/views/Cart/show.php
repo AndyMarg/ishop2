@@ -18,7 +18,7 @@
                         <td><?=$product['quantity']?></td>
                         <td>
                             <?= $currency->symbol_left?>
-                            <?=$product['price']?>
+                            <?=$product['price'] * $currency->value?>
                             <?= $currency->symbol_right?>
                         </td>
                         <td><span data-id="<?=$id?>" class="glyphicon glyphicon-remove text-danger delete-product" aria-hidden="true"></span></td>
@@ -32,7 +32,7 @@
                     <td>На сумму:</td>
                     <td colspan="4" class="text-right cart-sum">
                         <?= $currency->symbol_left?>
-                        <?=$cart->sum?>
+                        <?=$cart->sum * $currency->value?>
                         <?= $currency->symbol_right?>
                     </td>
                 </tr>

@@ -37,11 +37,8 @@ class CartController extends AppController {
         // добавляем товар в корзину
         $cart = Cart::getInstance();
         $cart->addProduct($product, $quantity, $modification);
-
-        // текущая валюта
-        $currency = (new Currencies())->current;
-
-        $this->getView()->setData(compact('cart', 'currency'));
+        // показать корзину
+        $this->show();
     }
 
     /**
@@ -72,8 +69,7 @@ class CartController extends AppController {
         $cart->quantity -= $products[$product_id]['quantity'];
         unset($products[$product_id]);
         $cart->products = $products;
-        $currency = (new Currencies())->current;
-        $this->getView()->setData(compact('cart', 'currency'));
+        $this->show();
     }
 
     /**
@@ -88,7 +84,14 @@ class CartController extends AppController {
         $cart->products = [];
         $cart->sum = 0;
         $cart->quantity = 0;
-        $currency = (new Currencies())->current;
-        $this->getView()->setData(compact('cart', 'currency'));
+        $this->show();
+    }
+
+    /**
+     * Внутреннее перенаправление для показа корзины
+     * @throws \Exception
+     */
+    private function show() {
+        $this->forward('cart/show');
     }
 }

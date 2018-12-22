@@ -7,11 +7,13 @@ namespace core\base;
  */
 abstract class Controller {
     
-    // маршрут к контроллеру
-    private $route;
 
-    // текущее представление
-    private $view;
+    private $route;     // маршрут к контроллеру
+    private $view;      // текущее представление
+
+    // необходим ли рендеринг страницы?
+    // (не нужен, если в методе контроллера ...Action() идет внутренне перенаправление (forwarding) по другому маршруту)
+    protected $rendering = true;
     
     public function __construct($route) {
         $this->route = $route;
@@ -30,10 +32,12 @@ abstract class Controller {
      */
     public function dispatch() {
         $this->callAction();
-        if ($this->isAjax()) {
-            $this->getView()->setLayout(false);
+        if ($this->rendering) {
+            if ($this->isAjax()) {
+                $this->getView()->setLayout(false);
+            }
+            $this->view->render();
         }
-        $this->view->render();
     }
     
     /**
@@ -55,6 +59,17 @@ abstract class Controller {
             header('HTTP/1.1 500 Internal Server Error');
             header('Content-Type: application/json; charset=UTF-8');
             die(json_encode(array('message' => $message, 'code' => $errorCode)));
+    }
+
+    /**
+     * Внутренне перенаправление по другому маршруту
+     * @param string $url URL для маршрутизации
+     * @throws \Exception
+     */
+    protected function forward(string $url)
+    {
+        $this->rendering = false;
+        Application::getRouter()->dispatch($url);
     }
     
     /**

@@ -46,11 +46,14 @@
                     <a href="cart/show" onclick="getCart(); return false;">
                         <div class="total">
                             <img src="images/cart-1.png" alt=""/>
-                            <?php if (!$cart->products): ?>
-                                <span class="simpleCart_total"><?php echo $currency->symbol_left . $cart->sum . $currency->symbol_right ?></span>
+                            <?php if (!empty($cart->products)): ?>
+                                <span class="simpleCart_total">
+                                    <?php echo $currency->symbol_left . $cart->sum * $currency->value. $currency->symbol_right ?>
+                                </span>
                             <?php else: ?>
                                 <span class="simpleCart_total">Корзина пуста</span>
                             <?php endif; ?>
+
                         </div>
                     </a>
                 </div>

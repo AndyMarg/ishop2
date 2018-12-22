@@ -19,7 +19,7 @@ $('body').on('click', '.add-to-cart-link', function (e) {
     addCart($(this).data('id'));
 });
 
-// Отправить товар в корзину (клик на объектах с классом "add-to-cart-link"
+// Удалить товар из корзины (клик на объектах с классом "delete-product" в модальном окне
 $('.modal-body').on('click', '.delete-product', function (e) {
     deleteCart($(this).data('id'));
 });
@@ -69,7 +69,6 @@ function addCart(product_id) {
 
 // запросить данные о корзине и показать ее
 function getCart() {
-    // отправить запрос на сервер
     $.ajax({
         url: 'cart/show',
         type: 'GET',
@@ -91,7 +90,7 @@ function showCart(cart) {
     }
     $('#cart .modal-body').html(cart);
     $('#cart').modal();
-    updateSum();
+    updateSum(cart);
 }
 
 // очистить корзину
@@ -109,9 +108,9 @@ function clearCart() {
     });
 }
 
-function updateSum() {
+function updateSum(cart) {
     // обновить информацию о сумме в главном шаблоне (справа вверху, рядом со значком корзины)
-    let sumElement = $('#cart .cart-sum');
+    let sumElement = $(cart).find('.cart-sum');
     if(sumElement.length) {
         $('.simpleCart_total').html(sumElement.text());
     } else {
