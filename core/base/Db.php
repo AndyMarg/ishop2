@@ -30,7 +30,7 @@ class Db {
      * 
      * @param string $sql   SQL
      * @param array $params Параметры 
-     * @return object Массив записей
+     * @return array Массив записей
      */
     public function query(string $sql, array $params = []) {
         // добавляем параметры для IN(), если есть

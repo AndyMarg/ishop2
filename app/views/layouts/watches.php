@@ -93,14 +93,17 @@
             </div>
             <div class="col-md-3 header-right">
                 <div class="search-bar">
-                    <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value === '') {
-                                        this.value = 'Search';
-                                    }">
-                    <input type="submit" value="">
+                    <form action="search" method="get" autocomplete="off">
+                        <input type="text" id="typeahead" class="typeahead" name="search_value"
+                               value="Поиск"
+                               onfocus="this.value = '';"
+                               onblur="if (this.value === '') {this.value = 'Поиск';}">
+                        <input type="submit" value="">
+                    </form>
                 </div>
             </div>
             <div class="clearfix"></div>
-        </div>
+        +
     </div>
 </div>
 <!--bottom-header-->
@@ -208,6 +211,7 @@ if (core\base\Application::getConfig()->db->debug) {
 
 <!--scripts-->
 <script src="js/bootstrap.min.js"></script>
+<script src="js/typeahead.bundle.js"></script>
 <script src="js/megamenu.js"></script>
 <script type="application/x-javascript"> addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
