@@ -29,6 +29,11 @@ return
                     "regexp" => "^product/(?P<alias>[a-z0-9-]+)/?$",
                     "controller" => "Product",
                     "action" => "view"
+                ],
+                "category" => [
+                    "regexp" => "^category/(?P<alias>[a-z0-9-]+)/?$",
+                    "controller" => "Category",
+                    "action" => "view"
                 ]
             ]
         ],

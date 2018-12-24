@@ -32,7 +32,7 @@ class Application {
     
     /**
      * Вернуть объект хранилища
-     * @return object
+     * @return Storage
      */
     public static function getStorage() {
         return Storage::getInstance();

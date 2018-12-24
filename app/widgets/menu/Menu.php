@@ -33,7 +33,7 @@ class Menu extends Widget {
     
     /**
      * Строим иерархический массив из плоского массива
-     * @return type
+     * @return array
      */
     private function getTree() {
         $tree = [];
@@ -65,11 +65,11 @@ class Menu extends Widget {
         $this->getChildsHtml($this->tree);
         echo "</{$this->containerHtmlTag}>";
     }
-    
+
     /**
      * Выводим один уровень меню
-     * @param type $tree
-     * @param type $tab
+     * @param array $tree
+     * @param string $tab
      */
     protected function getChildsHtml($tree, $tab = '') {
         foreach ($tree as $id => $category) {

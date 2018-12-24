@@ -3228,3 +3228,26 @@ span.twitter-typeahead {
     color: blue;
 }
 /*search*/
+
+.header-bottom {
+	padding: 0;
+}
+
+.search-bar form {
+	margin-top: 15px;
+	position: relative;
+}
+
+.search-bar input[type="submit"] {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+.menu {
+	font-size: 1.1em;
+}
+
+.menu a:hover {
+	color: blue;
+}

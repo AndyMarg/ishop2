@@ -36,7 +36,7 @@ class View {
         }
         // мета
         $this->meta['title'] = $config->defaults->meta->title;
-        $this->meta['decription'] = $config->defaults->meta->description;
+        $this->meta['description'] = $config->defaults->meta->description;
         $this->meta['keywords'] = $config->defaults->meta->keywords;
     }
     
