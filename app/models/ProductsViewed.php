@@ -9,7 +9,7 @@ use core\base\ModelListDb;
  */
 class ProductsViewed extends ModelListDb {
     
-    public function __construct(int $id) {
+    public function __construct() {
         $ids = self::getRecentlyViewed();
         // берем последние "recently_viewed_count" товаров
         $ids = array_slice($ids, -(\core\base\Application::getConfig()->interface->recently_viewed_count));
@@ -24,7 +24,7 @@ class ProductsViewed extends ModelListDb {
     
     /**
      * Возвращает массив идентификаторов последних просмотренныых товаров из куки
-     * @return type
+     * @return array
      */
     public static function getRecentlyViewed() {
         $cookie_value = filter_input(INPUT_COOKIE, 'recentlyViewed') ?? false;
@@ -35,9 +35,10 @@ class ProductsViewed extends ModelListDb {
         }
         return $result;
     }
-    
+
     /**
      * Сохраняет массив последних просмотренных товаров в куки
+     * @param int $id
      */
     public static function setRecentlyViewed(int $id) {
         $ids = self::getRecentlyViewed();

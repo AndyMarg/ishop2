@@ -3125,6 +3125,9 @@ ul.tag-men {
 .delete-product {
     cursor: pointer;
 }
+#search-string {
+	color: red;
+}
 
 /*search*/
 span.twitter-typeahead .tt-menu,

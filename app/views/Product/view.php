@@ -3,7 +3,7 @@
     <div class="container">
         <div class="breadcrumbs-main">
             <ol class="breadcrumb">
-                <li><a href="/">Home</a></li>
+                <li><a href="/">Главная</a></li>
                 <?php if (count($product->breadcrumbs) > 0): ?>
                     <?php foreach ($product->breadcrumbs as $category): ?>
                         <li><a href="category/<?= $category->alias; ?>"><?= $category->title; ?></a></li>

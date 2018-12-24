@@ -10,6 +10,8 @@ namespace app\models;
  * @property float price
  * @property string alias
  * @property string img
+ * @property string description
+ * @property string keywords
  */
 class Product extends AppModel {
 
@@ -65,7 +67,7 @@ class Product extends AppModel {
         // удаляем ид текущего товара
         $ids = array_diff($ids, [(int)$this->id]);
         if (!empty($ids)) {
-            return new ProductsViewed((int)$this->id);
+            return new ProductsViewed();
         } else {
             return false;
         }    

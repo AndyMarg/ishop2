@@ -57,4 +57,15 @@ class Utils {
         header("Location: $redirect");
         exit;
     }
+
+    /**
+     * Экранирует специальные символы в html коде
+     * @param string $str Строка для очистки
+     * @return string Очищенная строка
+     */
+    public static function htmlClear($str)
+    {
+        $s = htmlspecialchars($str, ENT_QUOTES);
+        return htmlspecialchars($str, ENT_QUOTES);
+    }
 }
