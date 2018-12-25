@@ -8,6 +8,7 @@ namespace app\models;
  * @property string title
  * @property string description
  * @property string keywords
+ * @property int category_id
  */
 class Category extends AppModel {
 
@@ -29,6 +30,22 @@ class Category extends AppModel {
             ];
         };
         parent::__construct($data, $options);
+    }
+
+    /**
+     * Возвращает массив объектов категории для представления  в виде "хлебных крошек"
+     * @return array
+     * @throws \Exception
+     */
+    public function getBreadcrumbs() {
+        $categories = new Categories();
+        $category = $categories->search('id', $this->id);
+        do {
+            $result[] = $category;
+            $parent_id = $category->parent_id;
+            $category = $categories->search('id', $parent_id);
+        } while ((int)$parent_id != 0);
+        return array_reverse($result);
     }
 
     /**

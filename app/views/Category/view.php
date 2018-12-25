@@ -4,7 +4,11 @@
         <div class="breadcrumbs-main">
             <ol class="breadcrumb">
                 <li><a href="/">Главная</a></li>
-<!--                <li class="active">Результат поиска <span id="search-string"> --><?//="\"{$search}\""?><!--</span>></li>-->
+                <?php if (count($category->breadcrumbs) > 0): ?>
+                    <?php foreach ($category->breadcrumbs as $item): ?>
+                        <li><a href="category/<?= $item->alias; ?>"><?= $item->title; ?></a></li>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </ol>
         </div>
     </div>
