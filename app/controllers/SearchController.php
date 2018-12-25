@@ -7,7 +7,7 @@ use app\models\Currencies;
 use app\models\ProductsSearched;
 use core\base\Application;
 use core\libs\Utils;
-use SebastianBergmann\CodeCoverage\Util;
+
 
 class SearchController extends AppController {
 

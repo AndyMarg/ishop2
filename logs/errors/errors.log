@@ -8,3 +8,4 @@
 [2018-12-18 04:0:45] Ошибка: My Exception | Файл: /home/vagrant/projects/ishop2/public/index.php | Строка: 12
 [2018-12-18 04:0:51] Ошибка: My Exception | Файл: /home/vagrant/projects/ishop2/public/index.php | Строка: 12
 [2018-12-18 04:0:33] Ошибка: My Exception | Файл: /home/vagrant/projects/ishop2/public/index.php | Строка: 12
+[2018-12-24 23:0:00] Ошибка: Not found property "id" or public method "getId" | Файл: /home/vagrant/projects/ishop2/core/base/Model.php | Строка: 29

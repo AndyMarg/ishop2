@@ -21,12 +21,16 @@ class Product extends AppModel {
      * @throws \Exception
      */
     public function __construct($data) {
-        $options = [
-            'sql' => 'select * from product where id = :id',
-            'params' => [':id' => $data],
-            'sql2' => "select * from product where alias = :alias and status = '1'",
-            'params2' => [':alias' => $data]
-        ];
+        if (gettype($data) === 'array') {
+            $options = [];
+        } else {
+            $options = [
+                'sql' => 'select * from product where id = :id',
+                'params' => [':id' => $data],
+                'sql2' => "select * from product where alias = :alias and status = '1'",
+                'params2' => [':alias' => $data]
+            ];
+        };
         parent::__construct($data, $options);
     }
 

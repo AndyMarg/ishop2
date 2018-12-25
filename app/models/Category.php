@@ -2,15 +2,14 @@
 
 namespace app\models;
 
-use core\base\Application;
-
 /**
  * Категория товара
  * @property int id
+ * @property string title
+ * @property string description
+ * @property string keywords
  */
-class Category extends AppModel{
-
-    public $child_ids = [];  // идентификаторы дочерних категорий
+class Category extends AppModel {
 
     /**
      * КОНСТРУКТОР
@@ -18,27 +17,42 @@ class Category extends AppModel{
      * @throws \Exception
      */
     public function __construct($data) {
-         $options = [
-            'sql' => 'select * from category where id = :id',
-            'params' => [':id' => $data['id']],
-            'sql2' => "select * from category where alias = :alias",
-            'params2' => [':alias' => $data],
-            'storage' => "category_{$data['alias']}"
-         ];
-         parent::__construct($data, $options);
-//        $this->getChildIds();
+        if (gettype($data) === 'array') {
+            $options = ["storage" => "category_{$data['id']}"];
+        } else {
+            $options = [
+                'sql' => 'select * from category where id = :id',
+                'params' => [':id' => $data],
+                'sql2' => "select * from category where alias = :alias",
+                'params2' => [':alias' => $data],
+                'storage' => "category_{$data}"
+            ];
+        };
+        parent::__construct($data, $options);
     }
 
     /**
      * Получить массив ид дочерних категорий
      */
-    private function getChildIds() {
-        $categories = Application::getStorage()->get('category');
-        $id = $this->id;
+    public function getChildsIds()
+    {
+        $categories = (new Categories())->asArray();
+        $ids = [$this->id];
+        $this->fillChildIdsRecursive($this->id, $categories, $ids);
+        return $ids;
+    }
+
+    /**
+     * Рекурсивно заполняет массив идентификаторами дочерних категорий
+     * @param int $parent_id Ид родительской категории
+     * @param array $categories Массив всех категорий
+     * @param array $ids Массив идентификаторов дочерних категорий (передается по ссылке)
+     */
+    private function fillChildIdsRecursive($parent_id, $categories, &$ids) {
         foreach ($categories as $category) {
-            if ($category['parent_id'] = $id) {
-                $this->child_ids[] = $category['id'];
-                $this->getChildIds();
+            if ($category['parent_id'] === $parent_id) {
+                $ids[] = $category['id'];
+                $this->fillChildIdsRecursive($category['id'], $categories, $ids);
             }
         }
     }

@@ -14,7 +14,7 @@ class Categories extends ModelListDb {
         $options = [
             'sql'  => "select * from category",
             'class' => 'Category',
-            'storage' => 'category'
+            'storage' => 'categories'
         ];
         parent::__construct($options);
     }
