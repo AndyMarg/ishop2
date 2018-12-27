@@ -9,11 +9,12 @@ use core\base\ModelListDb;
  */
 class Products extends ModelListDb {
     
-    public function __construct(int $first_record = 0, int $count_records = 0) {
+    public function __construct($page = false) {
         $options = [
             'sql'  => "select * from product where hit = :hit and status = :status",
             'params' => [':hit' => '1', ':status' => '1'],
-            'limit' => (($first_record > 0) && ($count_records > 0)) ? [$first_record, $count_records] : [],
+            'page' => $page,
+            'count_on_page' => 4,
             'class' => 'Product'
         ];
         parent::__construct($options);

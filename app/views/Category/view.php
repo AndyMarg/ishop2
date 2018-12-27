@@ -56,11 +56,10 @@
                     <?php endforeach; ?>
                     <div class="clearfix"></div>
                     <div class="text-center">
-                        <?php if ($pagination->getCountPages() > 1): ?>
-                            <p id="pagination-info">Показано <?=$products->count()?> товара(ов) из <?=$pagination->getTotal()?></p>
-                            <?=$pagination->getHtml();?>
+                        <?php if ($products->isNeedPagination()): ?>
+                            <p id="pagination-info">Показано <?=$products->count()?> товара(ов) из <?=$products->getTotal()?></p>
+                            <?=(new core\libs\Pagination($products))->getHtml()?>
                         <?php endif; ?>
-                    </div>
                     </div>
                 <?php else: ?>
                     <h3>В этой категории товаров пока нет ...</h3>

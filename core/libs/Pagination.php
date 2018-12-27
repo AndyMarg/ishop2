@@ -2,6 +2,8 @@
 
 namespace core\libs;
 
+use core\base\ModelListDb;
+
 /**
  * Class Pagination Постраничный просмотр
  * @package core\libs
@@ -16,16 +18,14 @@ class Pagination
 
     /**
      * Pagination constructor.
-     * @param int $current
-     * @param int $countOnPage
-     * @param int $total
+     * @param ModelListDb $model Модель
      */
-    public function __construct(int $current, int $countOnPage, int $total)
+    public function __construct(ModelListDb $model)
     {
-        $this->countOnPage = $countOnPage;
-        $this->total = $total;
-        $this->countPages = ceil($total / $countOnPage) ?: 1;
-        $this->current = $this->getCurrent($current);
+        $this->countOnPage = $model->getCountOnPage();
+        $this->total = $model->getTotal();
+        $this->countPages = ceil($this->total / $this->countOnPage) ?: 1;
+        $this->current = $this->getCurrent($model->getPage());
         $this->url = $this->getuUrl();
     }
 
@@ -70,13 +70,6 @@ class Pagination
         return '<ul class="pagination">' .$begin.$back.$left2.$left1. '<li class="active"><a>'.$this->current.'</a></li>' .$right1.$right2.$forward.$end. '</ul>';
     }
 
-    /**
-     * @return int Номер первой запичи на текущей странице
-     */
-    public function getStartRecord()
-    {
-        return ($this->current - 1) * $this->countOnPage;
-    }
 
     /**
      * Уточнить текущую страницу
@@ -99,29 +92,6 @@ class Pagination
         $uri = preg_replace("#(\/|\/\?|&)$#",'',$uri);
         $uri .= (preg_match("#\/?\?#", $uri)) === 1 ? '&' : '/?';
         return urldecode($uri);
-    }
-
-    /**
-     * @return int Количество страниц
-     */
-    public function getCountPages() {
-        return $this->countPages;
-    }
-
-    /**
-     * @return int Количество на странице
-     */
-    public function getCountOnPage(): int
-    {
-        return $this->countOnPage;
-    }
-
-    /**
-     * @return int Общее количество в выборке
-     */
-    public function getTotal(): int
-    {
-        return $this->total;
     }
 
 }

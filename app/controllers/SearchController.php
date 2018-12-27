@@ -33,7 +33,8 @@ class SearchController extends AppController {
     {
         $search = Utils::htmlClear(filter_input(INPUT_GET, 'search_value'));
         if ($search) {
-            $products = new ProductsSearched($search);
+            $page = (int) filter_input(INPUT_GET, 'page') ?: 1;
+            $products = new ProductsSearched($search, $page);
             $currency = (new Currencies())->current;
             $this->getView()->setMeta("Поиск по:" . "\"{$search}\"", "Результаты поиска", "результаты поиск");
             $this->getView()->setData(compact('products', 'currency', 'search'));

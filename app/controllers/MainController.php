@@ -19,9 +19,11 @@ class MainController extends AppController {
     public function indexAction() {
         $config = Application::getConfig();
         $this->getView()->setMeta($config->site->shop_name, $config->site->description,$config->site->keywords);
-        
+
+        $page = (int) filter_input(INPUT_GET, 'page') ?: 1;
+
         $brands = new Brands();
-        $products = new Products();
+        $products = new Products($page);
         $currency = (new Currencies())->current;
         
         $this->getView()->setData(compact('brands', 'products', 'currency'));

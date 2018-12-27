@@ -51,6 +51,12 @@
                         </div>
                     <?php endforeach; ?>
                     <div class="clearfix"></div>
+                    <div class="text-center">
+                        <?php if ($products->isNeedPagination()): ?>
+                            <p id="pagination-info">Показано <?=$products->count()?> товара(ов) из <?=$products->getTotal()?></p>
+                            <?=(new core\libs\Pagination($products))->getHtml()?>
+                        <?php endif; ?>
+                    </div>
                 <?php endif; ?>
             </div>
 
