@@ -15,16 +15,18 @@ class CategoryController extends AppController
     public function viewAction()
     {
         $category = new Category($this->getRoute()['alias']);
-        $products = new ProductsForCategory($category->id);
+
+        $page = (int) filter_input(INPUT_GET, 'page') ?: 1;
+        $countOnPage = Application::getConfig()->interface->pagination->rows_on_page;
+        $total = (new ProductsForCategory($category->id))->getCountRecords();
+        $pagination = new Pagination($page, $countOnPage, $total);
+        $start = $pagination->getStartRecord();
+
+        $products = new ProductsForCategory($category->id, $start, $countOnPage);
         $currency = (new Currencies())->current;
 
-        $page = (int) filter_input(INPUT_GET, 'page');
-        $countOnPage = Application::getConfig()->interface->pagination->rows_on_page;
-        $total = $products->count();
-        $pagination = new Pagination($page, $countOnPage, $total);
-
         $this->getView()->setMeta("Товары по категории:" . "\"{$category->title}\"", $category->description, $category->keywords);
-        $this->getView()->setData(compact('products', 'currency', 'category'));
+        $this->getView()->setData(compact('products', 'currency', 'category', 'pagination'));
     }
 
 }

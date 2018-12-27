@@ -3251,3 +3251,7 @@ span.twitter-typeahead {
 .menu a:hover {
 	color: blue;
 }
+
+#pagination-info {
+	margin-top: 25px;
+}

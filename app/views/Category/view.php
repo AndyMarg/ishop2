@@ -54,10 +54,17 @@
                             </div>
                         </div>
                     <?php endforeach; ?>
+                    <div class="clearfix"></div>
+                    <div class="text-center">
+                        <?php if ($pagination->getCountPages() > 1): ?>
+                            <p id="pagination-info">Показано <?=$products->count()?> товара(ов) из <?=$pagination->getTotal()?></p>
+                            <?=$pagination->getHtml();?>
+                        <?php endif; ?>
+                    </div>
+                    </div>
                 <?php else: ?>
                     <h3>В этой категории товаров пока нет ...</h3>
                 <?php endif; ?>
-                <div class="clearfix"></div>
             </div>
 
             <div class="col-md-3 prdt-right">

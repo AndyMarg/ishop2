@@ -36,7 +36,7 @@ class ModelListDb extends ModelList {
     /**
      * Загружаем данные списка моделей из БД
      *
-     * @return object
+     * @return array
      * @throws \Exception
      */
     private function load() {
@@ -44,13 +44,40 @@ class ModelListDb extends ModelList {
             throw new \Exception("Not defined SQL for model list");
         }
         $sql = $this->options['sql'];
+        // диапазон выборки строк
+        $limit = '';
+        if (key_exists('limit', $this->options) && !empty($this->options['limit'])) {
+            $limit = ' limit '. $this->options['limit'][0] . ',' .  $this->options['limit'][1];
+        }
+        $sql .= $limit;
+        // параметры
         $params = [];
         if (key_exists('params', $this->options) && !empty($this->options['params'])) {
             $params = $this->options['params'];
         }
         return Application::getDb()->query($sql, $params);
     }
-    
+
+    /**
+     * @return int Количество строк результата запроса
+     * @throws \Exception
+     */
+    public function getCountRecords()
+    {
+        if (!key_exists('sql', $this->options) || empty($this->options['sql'])) {
+            throw new \Exception("Not defined SQL for model list");
+        }
+        $sql = $this->options['sql'];
+        // параметры
+        $params = [];
+        if (key_exists('params', $this->options) && !empty($this->options['params'])) {
+            $params = $this->options['params'];
+        }
+        // меняем строку запроса для получения количества строк
+        $sql = preg_replace("#(select)(.*)(from .*)#i", "$1 count(*) as cnt $3", $sql);
+        return Application::getDb()->query($sql, $params)[0]['cnt'];
+    }
+
     /**
      * Возвращает массив данных из базы
      * @param bool $indexedById  Индексировать массив идентификаторами данных из базы
