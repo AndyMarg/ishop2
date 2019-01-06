@@ -1430,8 +1430,7 @@ a.mask {
 .account-bottom {
     margin-top: 2.2em;
 }
-.account-left input[type="text"],.account-left input[type="password"] {
-    width: 90%;
+.account-left input[type="text"],.account-left input[type="password"],.account-left input[type="email"] {
     margin: 0px;
     color: #000;
     background: none;
@@ -3254,4 +3253,43 @@ span.twitter-typeahead {
 
 #pagination-info {
 	margin-top: 25px;
+}
+
+div.box div.dropdown.open div {
+    top: 25px;
+}
+
+.drop > .btn-group > a {
+	color: #fff;
+	cursor: pointer;
+	position: relative;
+	top: -2px;
+}
+
+span.simpleCart_total {
+	position: relative;
+	top: 2px;
+	left: 10px;
+}
+
+form .has-success .form-control {
+	border-color: green;
+}
+
+form .has-error .form-control {
+	border-color: red;
+}
+
+.has-error .has-success {
+	position: relative;
+}
+
+.form-control-feedback {
+	right:	10px;
+	top: 25px;
+}
+
+
+a#user-menu {
+    text-decoration: none;
 }

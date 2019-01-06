@@ -88,6 +88,18 @@ class CartController extends AppController {
     }
 
     /**
+     * Оформить заказ
+     */
+    public function orderAction()
+    {
+        $cart = Cart::getInstance();
+        $currency = (new Currencies())->current;
+        $this->getView()->setMeta('Заказ товара');
+        $this->getView()->setData(compact('cart', 'currency'));
+
+    }
+    
+    /**
      * Внутреннее перенаправление для показа корзины
      * @throws \Exception
      */

@@ -2,19 +2,25 @@
 
 namespace core\base;
 
+use Valitron\Validator;
+
 /**
  * Базовый класс модели
  */
 abstract class Model {
     
-    private $data = [];  // данные модели
-    
+    protected $data = [];     // данные модели
+    private $rules = [];    // правила валидации модели
+    protected $errors = [];   // ошибки валидации
+
     /**
      * КОНСТРУКТОР
      * @param array $data Массив данных модели
+     * @param array $rules Правила валидации модели
      */
-    public function __construct(array $data = null) {
+    public function __construct(array $data = [], array $rules = []) {
         $this->data = $data;
+        $this->rules = $rules;
     }
     
     /**
@@ -72,5 +78,29 @@ abstract class Model {
      */
     public function isEmpty() {
         return empty($this->data);
+    }
+
+    /**
+     * Валидация данных модели
+     */
+    public function validate()
+    {
+        Validator::lang('ru');
+        $validator = new Validator($this->data);
+        $validator->rules($this->rules);
+        if ($validator->validate()) {
+            return true;
+        } else {
+            $this->errors = $validator->errors();
+            return false;
+        }
+    }
+
+    /**
+     * @return array Ошибки валидации
+     */
+    public function getErrors(): array
+    {
+        return $this->errors;
     }
 }

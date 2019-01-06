@@ -41,8 +41,25 @@ class Db {
         $stmt = $this->db->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetchAll();
-    }          
-    
+    }
+
+    /**
+     * Выполняет оператор в БД
+     *
+     * @param string $sql   SQL
+     * @param array $params Параметры
+     * @return bool
+     */
+    public function execute(string $sql, array $params = []) {
+        // добавляем параметры для IN(), если есть
+        $this->expandQuery($sql, $params);
+        // пишем в лог
+        $this->addLog($sql, $params);
+        // подготавливаем и выполняем запрос
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute($params);
+    }
+
     /**
      * Логгирование запросов
      * 

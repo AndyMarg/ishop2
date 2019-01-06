@@ -65,7 +65,6 @@ class Utils {
      */
     public static function htmlClear($str)
     {
-        $s = htmlspecialchars($str, ENT_QUOTES);
         return htmlspecialchars($str, ENT_QUOTES);
     }
 }
