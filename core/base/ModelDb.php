@@ -110,6 +110,8 @@ abstract class ModelDb extends Model {
 
         $result = Application::getDb()->execute($sql, $params);
 
+        $this->data['id'] = Application::getDb()->getLastID();
+
         return $result;
     }
 
@@ -147,5 +149,13 @@ abstract class ModelDb extends Model {
         $result = empty($this->errors);
 
         return $result;
+    }
+
+    /**
+     * @return bool True, если модель сохранена в БД
+     */
+    public function isPersisted()
+    {
+        return isset($this->data['id']);
     }
 }

@@ -11,8 +11,8 @@ use core\base\ModelDb;
 class User extends ModelDb
 {
     /**
-     * User constructor.
-     * @param $data
+     * Инициализируем пользователя из формы или БД
+     * @param array|string $data Массив данных из формы или логин пользователя для запроса данных из БД
      * @throws \Exception
      */
     public function __construct($data)
@@ -46,4 +46,30 @@ class User extends ModelDb
         $this->data['password'] = $hash;
         return parent::save();
     }
+
+    /**
+     * Возвращает экземпляр класса из сессии (если есть) или создает новый и помещает в сессию
+     * @param array|string|null $data Массив данных из формы или логин пользователя для запроса данных из БД
+     * @return User|null instance
+     * @throws \Exception
+     */
+    public static function get($data = null) {
+        if (!isset($_SESSION['user'])) {
+            if (!$data) return null;
+            $instance = new User($data);
+            $_SESSION['user'] = $instance;
+        } else {
+            $instance = $_SESSION['user'];
+        }
+        return $instance;
+    }
+
+    /**
+     *
+     */
+    public static function clear()
+    {
+        unset($_SESSION['user']);
+    }
+
 }

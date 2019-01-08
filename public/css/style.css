@@ -3293,3 +3293,12 @@ form .has-error .form-control {
 a#user-menu {
     text-decoration: none;
 }
+
+/* order */
+.order-info {
+	margin: 30px 0 50px 0;
+}
+
+div#window-authority div.register-main {
+    margin-top: 0;
+}

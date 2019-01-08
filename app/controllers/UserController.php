@@ -4,7 +4,7 @@
 namespace app\controllers;
 
 
-use app\models\User;
+use app\models\user;
 use core\libs\Utils;
 
 class UserController extends AppController
@@ -23,15 +23,21 @@ class UserController extends AppController
             $data['name'] = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $data['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $data['address'] = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $user = new User($data);
+            $redirect = filter_input(INPUT_GET, 'redirect', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            $user = user::get($data);
             if (!$user->validate()) {
                 $_SESSION['errors'] = $user->getErrors();
-                $_SESSION['form_data']= $data;
+                $_SESSION['form_data'] = $data;
+                User::clear();
                 Utils::redirect();
             } else {
                 $user->save();
-                $_SESSION['success'] = 'Пользователь зарегистрирован';
-                Utils::redirect();
+                if ($redirect === 'root') {
+                    Utils::redirect('/');
+                } else {
+                    Utils::redirect();
+                }
             }
        } else {
             $this->getView()->setMeta("Регистрация");
@@ -49,24 +55,21 @@ class UserController extends AppController
         if (!empty($_POST)) {
             $login = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $mode = filter_input(INPUT_GET, 'mode', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+//            $mode = filter_input(INPUT_GET, 'mode', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
             if ($login && $password) {
-                $user = new User($login);
+                $user = user::get($login);
                 if(!$user->isEmpty()) {
                     $hash = $user->password;
                     if (password_verify($password, $hash)) {
-                        $data = $user->asArray();
-                        unset($data['password']);
-                        $_SESSION['user'] = $data;
                         Utils::redirect('/');
                     } else {
                         $_SESSION['errors']['authority'][] = 'Логин/пароль введены неверно';
-                        unset($_SESSION['user']);
+                        user::clear();
                     }
                 } else {
                     $_SESSION['errors']['authority'][] = 'Логин/пароль введены неверно';
-                    unset($_SESSION['user']);
+                    user::clear();
                 }
             }
             Utils::redirect();
@@ -77,7 +80,7 @@ class UserController extends AppController
 
     public function logoutAction()
     {
-        unset($_SESSION['user']);
+        user::clear();
         Utils::redirect();
     }
 }

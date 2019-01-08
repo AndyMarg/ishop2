@@ -18,13 +18,13 @@
             <div class="col-md-12">
                 <div class="product-one signup">
                     <div class="register-top heading">
-                        <h2>РЕГИСТРАЦИЯ</h2>
+                        <h2>РЕГИСТРАЦИЯ ПОКУПАТЕЛЯ</h2>
                     </div>
 
                     <div class="register-main">
                         <div class="col-md-6 account-left">
                             <?php $user = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : null; ?>
-                            <form method="post" action="user/signup" id="signup" role="form" data-toggle="validator">
+                            <form method="post" action="user/signup/?redirect=root" id="signup" role="form" data-toggle="validator">
                                 <div class="form-group has-feedback">
                                     <label for="login">Логин</label>
                                     <input type="text" name="login" class="form-control" id="login" placeholder="Логин"

@@ -1,4 +1,5 @@
 <?php
+$user = \app\models\User::get();
 $cart = app\models\Cart::getInstance();
 $currency = (new app\models\Currencies())->current;
 ?>
@@ -31,12 +32,13 @@ $currency = (new app\models\Currencies())->current;
                         </select>
                     </div>
                     <div class="btn-group">
-                        <a id="user-menu" class="dropdown-toggle" data-toggle="dropdown">
-                            <?= isset($_SESSION['user']) ? $_SESSION['user']['name'] : 'Неавторизованный пользователь' ?>
+                        <a id="user-menu" class="dropdown-toggle" data-toggle="dropdown"
+                           data-id="<?= isset($user) && $user->isPersisted() ? $user->id : '' ?>">
+                            <?= isset($user) ? $user->name : 'Неавторизованный пользователь' ?>
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <?php if (!empty($_SESSION['user'])): ?>
+                            <?php if (isset($user) && $user->isPersisted()): ?>
                                 <li><a href="user/logout">Выход</a></li>
                             <?php else: ?>
                                 <li><a href="user/login">Вход</a></li>
@@ -220,7 +222,6 @@ $currency = (new app\models\Currencies())->current;
         echo \core\base\Application::getDb()->getLogHtml();
     }
     ?>
-
     <!-- Cart modal window -->
     <div id="cart" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
@@ -247,6 +248,7 @@ $currency = (new app\models\Currencies())->current;
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
     <!-- END Cart modal window -->
+
 
     <!--scripts-->
     <script src="js/bootstrap.min.js"></script>

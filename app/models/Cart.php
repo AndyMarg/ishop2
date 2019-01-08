@@ -17,9 +17,6 @@ class Cart extends Model {
      * Cart constructor.
      */
     private function __construct() {
-//        if (!isset($_SESSION['cart.currency'])) {
-//            $_SESSION['cart.currency'] = (new Currencies())->current;
-//        }
         $data['products'] = [];
         $data['quantity'] = 0;
         $data['sum'] = 0;

@@ -127,5 +127,13 @@ class Db {
         $html .= "</div>";
         return $html;
     }
-    
+
+    /**
+     * @return string ИД последней вставленной записи
+     */
+    public function getLastID()
+    {
+        return  $this->db->lastInsertId();
+    }
+
 }
