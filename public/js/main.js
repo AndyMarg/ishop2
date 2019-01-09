@@ -168,12 +168,12 @@ $('#typeahead').bind('typeahead:select', function(ev, suggestion) {
  * order functions
  */
 
-function registerOrder() {
-    win = $('#window-authority');
-    user_id = $('#user-menu').data('id');
+// add order
+function addOrder() {
+    let user_id = $('#user-menu').data('id');
     if (!user_id) {
-        win.modal();
+        $('#modal-not-authority-warning').modal();
+    } else {
+        document.forms["order-add"].submit();
     }
-    // console.log(user_id);
-    // console.log(win);
 }

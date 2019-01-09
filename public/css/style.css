@@ -3299,6 +3299,6 @@ a#user-menu {
 	margin: 30px 0 50px 0;
 }
 
-div#window-authority div.register-main {
+div#window-signup div.register-main, div#window-login div.register-main {
     margin-top: 0;
 }

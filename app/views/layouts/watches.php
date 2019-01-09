@@ -222,7 +222,7 @@ $currency = (new app\models\Currencies())->current;
         echo \core\base\Application::getDb()->getLogHtml();
     }
     ?>
-    <!-- Cart modal window -->
+    <!-- START: Cart modal window -->
     <div id="cart" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -239,16 +239,43 @@ $currency = (new app\models\Currencies())->current;
                     <button id="cart-btn-close" type="button" class="btn btn-default" data-dismiss="modal">Продолжить
                         покупки
                     </button>
-                    <a id="cart-btn-order" href="cart/order" type="button" class="btn btn-primary">Оформить заказ</a>
+                    <a id="cart-btn-order" href="order/show" type="button" class="btn btn-primary">Оформить заказ</a>
                     <button id="cart-btn-clear" type="button" class="btn btn-danger" onclick="clearCart()">Очистить
                         корзину
                     </button>
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
+            </div>
+        </div>
     </div><!-- /.modal -->
-    <!-- END Cart modal window -->
+    <!-- END: Cart modal window -->
 
+    <!-- START: Not authority warning modal window -->
+    <div id="modal-not-authority-warning" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Уважаемый покупатель, Вы не авторизованы в интернет-магазине!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Для того, чтобы оформить заказ Вам необходимо либо авторизоваться,
+                        если у вас уже есть учетные данные, либо зарегистрововаться  в интернет-магазине
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button id="cart-btn-close" type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button id="cart-btn-signup" type="button" class="btn btn-primary"
+                            onclick="$('#modal-not-authority-warning').modal('hide'); setTimeout(function(){$('#window-login').modal('show')}, 1000);">Войти
+                    </button>
+                    <button id="cart-btn-signup" type="button" class="btn btn-primary"
+                            onclick="$('#modal-not-authority-warning').modal('hide'); setTimeout(function(){$('#window-signup').modal('show')}, 1000);">Зарегистрироваться
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Not authority warning modal window -->
 
     <!--scripts-->
     <script src="js/bootstrap.min.js"></script>

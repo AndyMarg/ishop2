@@ -25,7 +25,7 @@ class UserController extends AppController
             $data['address'] = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $redirect = filter_input(INPUT_GET, 'redirect', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            $user = user::get($data);
+            $user = User::get($data);
             if (!$user->validate()) {
                 $_SESSION['errors'] = $user->getErrors();
                 $_SESSION['form_data'] = $data;
@@ -50,6 +50,8 @@ class UserController extends AppController
      */
     public function loginAction()
     {
+        $redirect = filter_input(INPUT_GET, 'redirect', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
         // если данные переданы из формы - пытаемся авторизовать пользователя,
         // иначе выводим форму для запроса данных
         if (!empty($_POST)) {
@@ -62,7 +64,11 @@ class UserController extends AppController
                 if(!$user->isEmpty()) {
                     $hash = $user->password;
                     if (password_verify($password, $hash)) {
-                        Utils::redirect('/');
+                        if ($redirect === 'root') {
+                            Utils::redirect('/');
+                        } else {
+                            Utils::redirect();
+                        }
                     } else {
                         $_SESSION['errors']['authority'][] = 'Логин/пароль введены неверно';
                         user::clear();

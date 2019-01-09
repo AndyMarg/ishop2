@@ -64,18 +64,22 @@
             <?php else: ?>
                 <h3 id="cart_is_empty">Корзина пуста</h3>
             <?php endif; ?>
-            <div class="form-group">
-                <label for="note">Примечание</label>
-                <textarea class="form-control" id="note" rows="3"></textarea>
-            </div>
-            <button id="do-order" type="button" class="btn btn-default" onclick="registerOrder()">Оформить</button>
+
+            <form method="post" action="order/add" name="order-add" role="form">
+                <div class="form-group">
+                    <label for="note">Примечание</label>
+                    <textarea class="form-control" id="note" name="note" rows="3"></textarea>
+                </div>
+                <button id="do-order" type="button" class="btn btn-default" onclick="addOrder()">Оформить</button>
+            </form>
+
         </div>
     </div>
 </div>
 <!-- END: order-info-->
 
-<!-- START: authorization modal window -->
-<div id="window-authority" class="modal fade" tabindex="-1" role="dialog">
+<!-- START: signup modal window -->
+<div id="window-signup" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -150,4 +154,58 @@
         </div>
     </div>
 </div>
-<!-- END: authorization modal window -->
+<!-- END: signup modal window -->
+
+<!-- START: login modal window -->
+<div id="window-login" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Вход</h4>
+            </div>
+            <div class="modal-body">
+                <!-- START: user registration form -->
+                <div class="container">
+                    <div class="row">
+                        <div class="register-main">
+                            <div class="col-md-9">
+                                <?php $user = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : null; ?>
+                                <form method="post" action="user/login" id="signup" role="form"
+                                      data-toggle="validator">
+                                    <div class="form-group has-feedback">
+                                        <label for="login">Логин</label>
+                                        <input type="text" name="login" class="form-control" id="login"
+                                               placeholder="Логин"
+                                               value="<?= $user['login'] ?: '' ?>" required>
+                                        <span class="glyphicon form-control-feedback"
+                                              aria-hidden="true"></span>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <label for="pasword">Пароль</label>
+                                        <input type="password" name="password" class="form-control"
+                                               id="pasword" placeholder="Пароль"
+                                               data-minlength="6"
+                                               data-error="Пароль должен включать не менее 6 символов"
+                                               required>
+                                        <span class="glyphicon form-control-feedback"
+                                              aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                    <button type="submit" class="btn btn-default">Войти</button>
+                                </form>
+                                <?php if (isset($_SESSION['form_data'])) unset($_SESSION['form_data']); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: user registration form -->
+            </div>
+            <div class="modal-footer">
+                <button id="authority-btn-close" type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: login modal window -->

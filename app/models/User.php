@@ -6,7 +6,8 @@ namespace app\models;
 use core\base\ModelDb;
 
 /**
- * @property mixed password
+ * @property string password
+ * * @property int id
  */
 class User extends ModelDb
 {
