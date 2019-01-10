@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Andrey.Margashov
- * Date: 09.01.2019
- * Time: 11:18
- */
 
 namespace app\controllers;
 
@@ -23,15 +17,17 @@ class OrderController extends AppController
     public function addAction()
     {
         $note = filter_input(INPUT_POST, 'note', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $cart = Cart::getInstance();
         $currency = (new Currencies())->current;
+        $cart = Cart::get();
         $user = User::get();
 
-        $data['user_id'] = $user->id;
         $data['currency'] = $currency->code;
         $data['note'] = $note;
-        $order = new Order($data);
-        $order->save();
+        $order = new Order($data, $user, $cart);
+
+        if ($order->save()) {
+            $order->mail();
+        };
 
         $this->getView()->setMeta('Заказ оформлен');
         $this->getView()->setData(compact('cart', 'currency', 'order'));
@@ -43,7 +39,7 @@ class OrderController extends AppController
      */
     public function showAction()
     {
-        $cart = Cart::getInstance();
+        $cart = Cart::get();
         $currency = (new Currencies())->current;
         $this->getView()->setMeta('Заказ товара');
         $this->getView()->setData(compact('cart', 'currency'));

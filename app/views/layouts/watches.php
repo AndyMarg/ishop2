@@ -1,6 +1,6 @@
 <?php
 $user = \app\models\User::get();
-$cart = app\models\Cart::getInstance();
+$cart = app\models\Cart::get();
 $currency = (new app\models\Currencies())->current;
 ?>
 

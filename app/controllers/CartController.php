@@ -35,7 +35,7 @@ class CartController extends AppController {
             $modification = null;
         }
         // добавляем товар в корзину
-        $cart = Cart::getInstance();
+        $cart = Cart::get();
         $cart->addProduct($product, $quantity, $modification);
         // показать корзину
         $this->show();
@@ -48,7 +48,7 @@ class CartController extends AppController {
         if (!$this->isAjax()) {
             Utils::redirect();
         }
-        $cart = Cart::getInstance();
+        $cart = Cart::get();
         $currency = (new Currencies())->current;
         $this->getView()->setData(compact('cart', 'currency'));
     }
@@ -62,7 +62,7 @@ class CartController extends AppController {
             Utils::redirect();
         }
         $product_id = (int) filter_input(INPUT_GET, 'id');
-        $cart = Cart::getInstance();
+        $cart = Cart::get();
         $products = $cart->products;
         $delta = $products[$product_id]['price'] * $products[$product_id]['quantity'];
         $cart->sum -= $delta;
@@ -80,7 +80,7 @@ class CartController extends AppController {
         if (!$this->isAjax()) {
             Utils::redirect();
         }
-        $cart = Cart::getInstance();
+        $cart = Cart::get();
         $cart->products = [];
         $cart->sum = 0;
         $cart->quantity = 0;

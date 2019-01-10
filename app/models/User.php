@@ -66,7 +66,7 @@ class User extends ModelDb
     }
 
     /**
-     *
+     * Очищаем данные пользователя в сессии
      */
     public static function clear()
     {

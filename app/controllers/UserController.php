@@ -4,6 +4,7 @@
 namespace app\controllers;
 
 
+use app\models\Cart;
 use app\models\user;
 use core\libs\Utils;
 
@@ -32,11 +33,13 @@ class UserController extends AppController
                 User::clear();
                 Utils::redirect();
             } else {
-                $user->save();
-                if ($redirect === 'root') {
-                    Utils::redirect('/');
-                } else {
-                    Utils::redirect();
+                if ($user->save()) {
+                    Cart::clear();
+                    if ($redirect === 'root') {
+                        Utils::redirect('/');
+                    } else {
+                        Utils::redirect();
+                    }
                 }
             }
        } else {
@@ -64,6 +67,7 @@ class UserController extends AppController
                 if(!$user->isEmpty()) {
                     $hash = $user->password;
                     if (password_verify($password, $hash)) {
+                        Cart::clear();
                         if ($redirect === 'root') {
                             Utils::redirect('/');
                         } else {
@@ -86,7 +90,8 @@ class UserController extends AppController
 
     public function logoutAction()
     {
-        user::clear();
+        User::clear();
+        Cart::clear();
         Utils::redirect();
     }
 }

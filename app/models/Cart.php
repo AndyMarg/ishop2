@@ -39,6 +39,8 @@ class Cart extends Model {
             $temp['title'] = $product->title;
             $temp['price'] = $product->price;
         }
+        $temp['id'] = $id;
+        $temp['product_id'] =  $product->id;
         $temp['alias'] = $product->alias;
         $temp['quantity'] = $quantity;
         $temp['img'] = $product->img;
@@ -65,7 +67,7 @@ class Cart extends Model {
      * Возвращает экземпляр класса из сессии (если есть) или создает новый и помещает в сессию
      * @return Cart instance
      */
-    public static function getInstance() {
+    public static function get() {
         if (!isset($_SESSION['cart'])) {
             $instance = new static;
             $_SESSION['cart'] = $instance;
@@ -74,5 +76,13 @@ class Cart extends Model {
         }
         return $instance;
     }
-    
+
+    /**
+     * Очищаем данные корзины в сессии
+     */
+    public static function clear()
+    {
+        unset($_SESSION['cart']);
+    }
+
 }
