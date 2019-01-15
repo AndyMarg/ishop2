@@ -9,8 +9,12 @@ return
             "admin" => "Andrey.Margashov@yandex.ru"
         ],
         "smtp" => [
-            "login" => "",
-            "password" => ""
+            "host" => "smtp.mailtrap.io",
+            "port" => "2525",
+            "protocol" => "ssl",
+            "login" => "588ab5eff266c4",
+            "password" => "39136a43bff979",
+            "receiver" => "test-4d819a@inbox.mailtrap.io"
         ],
         "site" => [
             "shop_name" => "Интернет-магазин чего-то там...",

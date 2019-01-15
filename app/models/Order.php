@@ -3,7 +3,11 @@
 namespace app\models;
 
 
+use core\base\Application;
 use core\base\ModelDb;
+use Swift_Mailer;
+use Swift_Message;
+use Swift_SmtpTransport;
 
 /**
  * @property mixed id
@@ -47,16 +51,19 @@ class Order extends ModelDb
      */
     public function save()
     {
-        parent::save();
-        foreach ($this->cart->products as $product) {
-            $data['order_id'] = $this->id;
-            $data['product_id'] = $product['product_id'];
-            $data['qty'] = $product['quantity'];
-            $data['title'] = $product['title'];
-            $data['price'] = $product['price'];
-            $order_item = new OrderItem($data);
-            $order_item->save();
+        $result = parent::save();
+        if ($result) {
+            foreach ($this->cart->products as $product) {
+                $data['order_id'] = $this->id;
+                $data['product_id'] = $product['product_id'];
+                $data['qty'] = $product['quantity'];
+                $data['title'] = $product['title'];
+                $data['price'] = $product['price'];
+                $order_item = new OrderItem($data);
+                $result = $order_item->save();
+            }
         }
+        return $result;
     }
 
     /**
@@ -64,7 +71,18 @@ class Order extends ModelDb
      */
     public function mail()
     {
-        
+        $smtp = Application::getConfig()->smtp;
+
+        $transport = (new Swift_SmtpTransport($smtp->host, $smtp->port))->setUsername($smtp->login)->setPassword($smtp->password);
+
+        $mailer = new Swift_Mailer($transport);
+
+        $message = (new Swift_Message('Your order registered!'))
+            ->setFrom(['ishop@best.com' => ''])
+            ->setTo([$smtp->receiver => 'Customer'])
+            ->setBody('Order registered!')
+        ;
+        $result = $mailer->send($message);
     }
 
 
