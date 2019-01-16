@@ -61,18 +61,16 @@
                         </tbody>
                     </table>
                 </div>
+                <form method="post" action="order/add" name="order-add" role="form">
+                    <div class="form-group">
+                        <label for="note">Примечание</label>
+                        <textarea class="form-control" id="note" name="note" rows="3"></textarea>
+                    </div>
+                    <button id="do-order" type="button" class="btn btn-default" onclick="addOrder()">Оформить</button>
+                </form>
             <?php else: ?>
                 <h3 id="cart_is_empty">Корзина пуста</h3>
             <?php endif; ?>
-
-            <form method="post" action="order/add" name="order-add" role="form">
-                <div class="form-group">
-                    <label for="note">Примечание</label>
-                    <textarea class="form-control" id="note" name="note" rows="3"></textarea>
-                </div>
-                <button id="do-order" type="button" class="btn btn-default" onclick="addOrder()">Оформить</button>
-            </form>
-
         </div>
     </div>
 </div>

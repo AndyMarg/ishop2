@@ -19,7 +19,8 @@ return
         "site" => [
             "shop_name" => "Интернет-магазин чего-то там...",
             "description" => "Очень клевый магазинчик",
-            "keywords" => "всякая фигня"
+            "keywords" => "всякая фигня",
+            "email" => "ishop@best.com"
         ],
         "interface" => [
             "pagination" => [

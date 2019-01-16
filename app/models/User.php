@@ -7,7 +7,10 @@ use core\base\ModelDb;
 
 /**
  * @property string password
- * * @property int id
+ * @property int id
+ * @property string name
+ * @property string email
+ * @property string address
  */
 class User extends ModelDb
 {

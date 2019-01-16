@@ -7,12 +7,13 @@ use app\models\Cart;
 use app\models\Currencies;
 use app\models\Order;
 use app\models\User;
+use core\libs\Utils;
 
 class OrderController extends AppController
 {
 
     /**
-     * Добавить заказ
+     * Оформить заказ
      */
     public function addAction()
     {
@@ -26,11 +27,12 @@ class OrderController extends AppController
         $order = new Order($data, $user, $cart);
 
         if ($order->save()) {
-            $order->mail();
+//            $order->mail();
+            Cart::clear();
+            $_SESSION['success'] = 'Спасибо за Ваш заказ. В ближайшее время с Вами свяжется менеджер для согласования заказа';
         };
 
-        $this->getView()->setMeta('Заказ оформлен');
-        $this->getView()->setData(compact('cart', 'currency', 'order'));
+        Utils::redirect();
     }
 
     /**

@@ -5,6 +5,7 @@ namespace app\models;
 
 use core\base\Application;
 use core\base\ModelDb;
+use core\libs\Utils;
 use Swift_Mailer;
 use Swift_Message;
 use Swift_SmtpTransport;
@@ -29,6 +30,7 @@ class Order extends ModelDb
         $this->cart = $cart;
         
         $this->user = $user;
+
         if (gettype($data) === 'array') {
             $data['user_id'] = $this->user->id;
         }
@@ -72,15 +74,24 @@ class Order extends ModelDb
     public function mail()
     {
         $smtp = Application::getConfig()->smtp;
+        $site = Application::getConfig()->site;
 
-        $transport = (new Swift_SmtpTransport($smtp->host, $smtp->port))->setUsername($smtp->login)->setPassword($smtp->password);
+        $transport = (new Swift_SmtpTransport($smtp->host, $smtp->port))
+            ->setUsername($smtp->login)
+            ->setPassword($smtp->password);
 
         $mailer = new Swift_Mailer($transport);
 
-        $message = (new Swift_Message('Your order registered!'))
-            ->setFrom(['ishop@best.com' => ''])
-            ->setTo([$smtp->receiver => 'Customer'])
-            ->setBody('Order registered!')
+        ob_start();
+        $cart = $this->cart;
+        $currency = (new Currencies())->current;
+        require Utils::getRoot() . Application::getConfig()->dirs->views . '/mail/mail_order.php';
+        $body = ob_get_clean();
+
+        $message = (new Swift_Message("Вы совершили заказ №{$this->id} на сайте \"{$site->shop_name}\""))
+            ->setFrom([$site->email => $site->shop_name])
+            ->setTo([ $this->user->email => $this->user->name])
+            ->setBody($body, 'text/html');
         ;
         $result = $mailer->send($message);
     }
