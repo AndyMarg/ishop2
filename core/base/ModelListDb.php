@@ -80,7 +80,12 @@ class ModelListDb extends ModelList {
         if (key_exists('params', $this->options) && !empty($this->options['params'])) {
             $params = $this->options['params'];
         }
-        return Application::getDb()->query($sql, $params);
+        // fetch mode
+        $fetch_mode = null;
+        if (key_exists('fetch_mode', $this->options) && !empty($this->options['fetch_mode'])) {
+            $fetch_mode = $this->options['fetch_mode'];
+        }
+        return Application::getDb()->query($sql, $params, $fetch_mode);
     }
 
     /**

@@ -14,7 +14,7 @@ class Brand extends AppModel {
      */
     public function __construct($data) {
         $id = gettype($data) === 'integer' ? $data : NULL;
-         $options = [
+        $options = [
             'sql' => 'select * from brand where id = :id',
             'params' => [':id' => $id]
         ];

@@ -51,6 +51,6 @@ return
         "defaults" => [
             "layout" => "watches"
         ],
-        "widgets" => ["currency"]
+        "widgets" => ['currency','filter']
     ];
 
