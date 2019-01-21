@@ -30,10 +30,9 @@ class Db {
      *
      * @param string $sql SQL
      * @param array $params Параметры
-     * @param int|null $fetch_mode
      * @return array Массив записей
      */
-    public function query(string $sql, array $params = [], int $fetch_mode = null) {
+    public function query(string $sql, array $params = []) {
         // добавляем параметры для IN(), если есть
         $this->expandQuery($sql, $params);
         // пишем в лог
@@ -41,12 +40,7 @@ class Db {
         // подготавливаем и выполняем запрос
         $stmt = $this->db->prepare($sql);
         $stmt->execute($params);
-        if ($fetch_mode) {
-            $result = $stmt->fetchAll($fetch_mode);
-        } else {
-            $result = $stmt->fetchAll();
-        }
-        return $result;
+        return $stmt->fetchAll();
     }
 
     /**
@@ -142,13 +136,4 @@ class Db {
         return  $this->db->lastInsertId();
     }
 
-
-//    public function test()
-//    {
-//        $sql = "select g.id filter__id, g.title filter_name, v.id, v.value from attribute_group g join attribute_value v on v.attr_group_id = g.id";
-//        $stmt = $this->db->prepare($sql);
-//        $stmt->execute();
-//        $result = $stmt->fetchAll(\PDO::FETCH_GROUP);
-//        var_dump($result);
-//    }
 }

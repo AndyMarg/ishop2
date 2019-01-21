@@ -75,26 +75,8 @@ abstract class ModelDb extends Model {
                 throw new \Exception("Invalid argument for identify db result");
                 break;
         endswitch;
-        // fetch mode
-        $fetch_mode = null;
-        if (key_exists('fetch_mode', $this->options) && !empty($this->options['fetch_mode'])) {
-            $fetch_mode = $this->options['fetch_mode'];
-        }
-
-        $result = Application::getDb()->query($sql, $params, $fetch_mode);
-        if($result) {
-            if (!$fetch_mode) {
-                $result = $result[0];
-            } else {
-                $key = reset(array_keys($result));
-                $result[0] = reset($result);
-                $result[0]['key'] = $key;
-                unset($result[$key]);
-            }
-        } else {
-            $result = [];
-        }
-        return $result;
+        $result = Application::getDb()->query($sql, $params);
+        return $result ? $result[0] : [];
     }
     
     /**

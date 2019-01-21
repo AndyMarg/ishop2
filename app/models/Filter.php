@@ -5,6 +5,10 @@ namespace app\models;
 
 use core\base\ModelDb;
 
+/**
+ * Class Filter Значение фильтра
+ * @package app\models
+ */
 class Filter extends ModelDb
 {
 
@@ -17,12 +21,10 @@ class Filter extends ModelDb
     {
         $id = gettype($data) === 'integer' ? $data : NULL;
         $options = [
-            'sql' => "select g.title filter_name, g.id filter__id, v.id, v.value " .
+            'sql' => "select v.id, v.value, g.id filter__id, g.title filter_name  " .
                      "from attribute_group g join attribute_value v on v.attr_group_id = g.id where g.id = :id;",
             'params' => [':id' => $id],
-            'fetch_mode' => \PDO::FETCH_GROUP
         ];
         parent::__construct($data, $options);
-        var_dump($this->data);
     }
 }

@@ -3,6 +3,7 @@
 namespace app\widgets\filter;
 
 
+use app\models\Filters;
 use core\base\Widget;
 
 class Filter extends Widget
@@ -15,9 +16,9 @@ class Filter extends Widget
      * Виртуальный метод. Исполнение виджета
      */
     protected function run() {
-        $filter = new \app\models\Filter(2);
+        $filters = new Filters();
 
-        $this->setData(compact('filter'));
+        $this->setData(compact('filters'));
         parent::run();
     }
 
