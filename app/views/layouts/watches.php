@@ -277,6 +277,9 @@ $currency = (new app\models\Currencies())->current;
     </div>
     <!-- END: Not authority warning modal window -->
 
+    <!-- preload animation   -->
+    <div class="preloader"><img src="images/ring.svg" alt=""></div>
+
     <!--scripts-->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/typeahead.bundle.js"></script>

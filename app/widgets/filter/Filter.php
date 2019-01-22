@@ -9,7 +9,11 @@ use core\base\Widget;
 class Filter extends Widget
 {
     public function __construct() {
-        parent::__construct('filter', []);
+        $options = [
+            "cachePeriod" => "120"
+        ];
+
+        parent::__construct('filter', $options);
     }
 
     /**

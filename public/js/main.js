@@ -177,3 +177,22 @@ function addOrder() {
         document.forms["order-add"].submit();
     }
 }
+
+
+/**
+ * Filters
+ */
+
+$('body').on('change', '.filter-value', function () {
+    let checked_values = $('.filter-value:checked');
+    let values = '';
+    checked_values.each(function () {
+        values += this.value + ',';
+    });
+    if (values) {
+
+    } else {
+        window.location = location.pathname;
+    }
+    console.log(values);
+});

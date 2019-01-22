@@ -3302,3 +3302,27 @@ a#user-menu {
 div#window-signup div.register-main, div#window-login div.register-main {
     margin-top: 0;
 }
+
+section.sky-form div.row1.scroll-pane div.col.col-4 label.checkbox {
+	text-transform: none;
+	margin-bottom: 0px;
+}
+
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    background-color: #fefefe;
+    opacity: 0.7;
+    display: none;
+}
+
+.preloader img {
+    position: relative;
+    left: 50%;
+    top: 50vh;
+    margin: -100px 0 0 -100px;
+}

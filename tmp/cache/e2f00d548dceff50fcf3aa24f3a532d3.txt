@@ -1,0 +1,76 @@
+a:2:{s:4:"data";s:5754:"            <section  class="sky-form">
+            <h4>Механизм</h4>
+            <div class="row1 scroll-pane">
+                <div class="col col-4">
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="1" ><i></i>Механика с автоподзаводом                        </label>
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="2" ><i></i>Механика с ручным заводом                        </label>
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="3" ><i></i>Кварцевый от батарейки                        </label>
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="4" ><i></i>Кварцевый от солнечного аккумулятора                        </label>
+                                    </div>
+            </div>
+        </section>
+            <section  class="sky-form">
+            <h4>Стекло</h4>
+            <div class="row1 scroll-pane">
+                <div class="col col-4">
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="5" ><i></i>Сапфировое                        </label>
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="6" ><i></i>Минеральное                        </label>
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="7" ><i></i>Полимерное                        </label>
+                                    </div>
+            </div>
+        </section>
+            <section  class="sky-form">
+            <h4>Ремешок</h4>
+            <div class="row1 scroll-pane">
+                <div class="col col-4">
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="8" ><i></i>Стальной                        </label>
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="9" ><i></i>Кожаный                        </label>
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="10" ><i></i>Каучуковый                        </label>
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="11" ><i></i>Полимерный                        </label>
+                                    </div>
+            </div>
+        </section>
+            <section  class="sky-form">
+            <h4>Корпус</h4>
+            <div class="row1 scroll-pane">
+                <div class="col col-4">
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="12" ><i></i>Нержавеющая сталь                        </label>
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="13" ><i></i>Титановый сплав                        </label>
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="14" ><i></i>Латунь                        </label>
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="15" ><i></i>Полимер                        </label>
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="16" ><i></i>Керамика                        </label>
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="17" ><i></i>Алюминий                        </label>
+                                    </div>
+            </div>
+        </section>
+            <section  class="sky-form">
+            <h4>Индикация</h4>
+            <div class="row1 scroll-pane">
+                <div class="col col-4">
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="18" ><i></i>Аналоговые                        </label>
+                                            <label class="checkbox">
+                            <input class="filter-value" type="checkbox" name="checkbox" value="19" ><i></i>Цифровые                        </label>
+                                    </div>
+            </div>
+        </section>
+    <script>
+</script>
+";s:8:"end_time";i:1548160335;}
