@@ -195,6 +195,7 @@ function showFilteredGoods() {
     checked_values.each(function () {
         values += this.value + ',';
     });
+    values = values.slice(0, -1);
     if (values) {
         $.ajax({
             url: location.href,
@@ -208,6 +209,12 @@ function showFilteredGoods() {
             success: function (result) {
                 $('.preloader').delay(500).fadeOut('slow', function () {
                     $('#category-products').html(result).fadeIn();
+                    // формируем url и помещаем в историю просмотра
+                    let query_string = location.search.replace(/filter(.+?)(&|$)/g, '');
+                    let url = location.pathname + query_string + (location.search ? '&' : '?') + 'filter=' + values;
+                    url = url.replace('&&', '&');
+                    url = url.replace('?&', '?');
+                    history.pushState({}, '', url);
                 })
             },
             error: function () {

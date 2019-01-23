@@ -18,8 +18,12 @@ class CategoryController extends AppController
         $products = new ProductsForCategory($category->id, $page);
         $currency = (new Currencies())->current;
 
+        if (!empty($_GET['filter'])) {
+            $filters = $_GET['filter'];
+        }
+
         if ($this->isAjax()) {
-            var_dump($_GET);
+            var_dump($filters);
             die;
         }
 
