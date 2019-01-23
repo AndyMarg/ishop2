@@ -18,6 +18,11 @@ class CategoryController extends AppController
         $products = new ProductsForCategory($category->id, $page);
         $currency = (new Currencies())->current;
 
+        if ($this->isAjax()) {
+            var_dump($_GET);
+            die;
+        }
+
         $this->getView()->setMeta("Товары по категории:" . "\"{$category->title}\"", $category->description, $category->keywords);
         $this->getView()->setData(compact('products', 'currency', 'category'));
     }

@@ -183,16 +183,38 @@ function addOrder() {
  * Filters
  */
 
+// set filter handler
 $('body').on('change', '.filter-value', function () {
+    showFilteredGoods();
+});
+
+// show filtered Goods
+function showFilteredGoods() {
     let checked_values = $('.filter-value:checked');
     let values = '';
     checked_values.each(function () {
         values += this.value + ',';
     });
     if (values) {
-
+        $.ajax({
+            url: location.href,
+            data: {filter: values},
+            type: 'GET',
+            beforeSend: function () {
+                $('.preloader').fadeIn(300, function () {
+                    $('#category-products').hide();
+                })
+            },
+            success: function (result) {
+                $('.preloader').delay(500).fadeOut('slow', function () {
+                    $('#category-products').html(result).fadeIn();
+                })
+            },
+            error: function () {
+                alert('Ошибка!');
+            }
+        });
     } else {
         window.location = location.pathname;
     }
-    console.log(values);
-});
+}
