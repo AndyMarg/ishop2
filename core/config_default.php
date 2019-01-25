@@ -16,6 +16,7 @@ return
             "models" => "/app/models",
             "views" => "/app/views",
             "layouts" => "/app/views/layouts",
+            "fragments" => "/app/views/fragments",
             "widgets" => "/app/widgets",
             "widget_controllers" => "/app/widgets/{widget}/controllers",
             "widget_tpls" => "/app/widgets/{widget}/tpl",

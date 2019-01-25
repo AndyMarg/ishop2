@@ -4,8 +4,10 @@ namespace app\controllers;
 
 use app\models\Brands;
 use app\models\Currencies;
+use app\models\Product;
 use app\models\Products;
 use core\base\Application;
+use core\base\View;
 
 /**
  * Контроллер по умолчанию
@@ -25,7 +27,7 @@ class MainController extends AppController {
         $brands = new Brands();
         $products = new Products($page);
         $currency = (new Currencies())->current;
-        
+
         $this->getView()->setData(compact('brands', 'products', 'currency'));
     }
 }

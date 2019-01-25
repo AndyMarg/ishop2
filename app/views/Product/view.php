@@ -198,42 +198,11 @@
                 <?php if (!$product->linked->isEmpty()): ?>
                     <div class="latestproducts">
                         <h3>С этим товаром также покупают:</h3>
-                        <div class="product-one">
-                            <?php foreach ($product->linked as $item): ?>
-                                <div class="col-md-4 product-left p-left">
-                                    <div class="product-main simpleCart_shelfItem">
-                                        <a href="product/<?= $item->alias; ?>" class="mask"><img
-                                                    class="img-responsive zoom-img" src="images/<?= $item->img; ?>"
-                                                    alt=""/></a>
-                                        <div class="product-bottom">
-                                            <h3><a href="product/<?= $item->alias; ?>"><?= $item->title; ?></a></h3>
-                                            <p>Explore Now</p>
-                                            <h4>
-                                                <a class="add-to-cart-link" href="cart/add/?id=<?= $item->id; ?>"
-                                                   data-id="<?= $item->id; ?>"><i></i></a>
-                                                <span class="item_price">
-                                                                <?= $currency->symbol_left; ?>
-                                                                <?= $item->price * $currency->value; ?>
-                                                                <?= $currency->symbol_right; ?> 
-                                                            </span>
-                                                <?php if ($item->old_price): ?>
-                                                    <small>
-                                                        <del><?= $item->old_price * $currency->value; ?></del>
-                                                    </small>
-                                                <?php endif; ?>
-                                            </h4>
-                                        </div>
-                                        <div class="srch">
-                                            <?php if ($item->old_price): ?>
-                                                <span>-<?= 100 - round(($item->price / $item->old_price) * 100); ?>
-                                                    %</span>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                            <div class="clearfix"></div>
-                        </div>
+                        <?php
+                            $products = $product->linked;
+                            $num_in_row = 3;
+                            echo core\base\View::fragment('products', compact(['products', 'currency', 'num_in_row']));
+                        ?>
                     </div>
                 <?php endif; ?>
 
@@ -241,42 +210,11 @@
                 <?php if ($product->viewed): ?>
                     <div class="latestproducts">
                         <h3>Недавно просмотренные товары:</h3>
-                        <div class="product-one">
-                            <?php foreach ($product->viewed as $item): ?>
-                                <div class="col-md-4 product-left p-left">
-                                    <div class="product-main simpleCart_shelfItem">
-                                        <a href="product/<?= $item->alias; ?>" class="mask"><img
-                                                    class="img-responsive zoom-img" src="images/<?= $item->img; ?>"
-                                                    alt=""/></a>
-                                        <div class="product-bottom">
-                                            <h3><a href="product/<?= $item->alias; ?>"><?= $item->title; ?></a></h3>
-                                            <p>Explore Now</p>
-                                            <h4>
-                                                <a class="add-to-cart-link" href="cart/add/?id=<?= $item->id; ?>"
-                                                   data-id="<?= $item->id; ?>"><i></i></a>
-                                                <span class="item_price">
-                                                                <?= $currency->symbol_left; ?>
-                                                                <?= $item->price * $currency->value; ?>
-                                                                <?= $currency->symbol_right; ?> 
-                                                            </span>
-                                                <?php if ($item->old_price): ?>
-                                                    <small>
-                                                        <del><?= $item->old_price * $currency->value; ?></del>
-                                                    </small>
-                                                <?php endif; ?>
-                                            </h4>
-                                        </div>
-                                        <div class="srch">
-                                            <?php if ($item->old_price): ?>
-                                                <span>-<?= 100 - round(($item->price / $item->old_price) * 100); ?>
-                                                    %</span>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                            <div class="clearfix"></div>
-                        </div>
+                        <?php
+                            $products = $product->viewed;
+                            $num_in_row = 3;
+                            echo core\base\View::fragment('products', compact(['products', 'currency', 'num_in_row']));
+                        ?>
                     </div>
                 <?php endif; ?>
 

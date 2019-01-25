@@ -97,6 +97,25 @@ class View {
             throw new \Exception("Не найдено представление: {$file}",500);
         }
     }
+
+    /**
+     * Возвращает фрагмент html-кода для вставки в шаблоне или view
+     * @param string $name Имя фрагмента
+     * @param array|null $vars Массив имен переменных для использования в фрагменте
+     * @return string Распарсенный фрагмент
+     * @throws \Exception
+     */
+    public static function fragment(string $name, array $vars = null) : string {
+        if (!empty($vars)) { extract($vars); }
+        $file = Utils::getRoot() . Application::getConfig()->dirs->fragments . '/' . $name . '.tpl.php';
+        if (is_file($file)) {
+            ob_start();
+            require $file;
+            return ob_get_clean();
+        } else {
+            throw new \Exception("Fragment \"{$file}\" not found", 500);
+        }
+    }
     
     /**
      * Возвращает путь к предсталениz в файловой системе
@@ -153,3 +172,4 @@ class View {
         }
     }
 }
+
