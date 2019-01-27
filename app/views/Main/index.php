@@ -1,23 +1,16 @@
-<!--banner-starts-->
+<!-- banner -->
 <div class="bnr" id="home">
     <div id="top" class="callbacks_container">
         <ul class="rslides" id="slider4">
-            <li>
-                <img src="images/bnr-1.jpg" alt=""/>
-            </li>
-            <li>
-                <img src="images/bnr-2.jpg" alt=""/>
-            </li>
-            <li>
-                <img src="images/bnr-3.jpg" alt=""/>
-            </li>
+            <li><img src="images/bnr-1.jpg" alt=""/></li>
+            <li><img src="images/bnr-2.jpg" alt=""/></li>
+            <li><img src="images/bnr-3.jpg" alt=""/></li>
         </ul>
     </div>
     <div class="clearfix"></div>
 </div>
-<!--banner-ends-->
 
-<!--about-starts-->
+<!--brands-->
 <?php if ($brands): ?>
     <div class="about">
         <div class="container">
@@ -38,10 +31,8 @@
         </div>
     </div>
 <?php endif; ?>
-<!--about-end-->
 
-
-<!--product-starts-->
+<!--products-->
 <?php if ($products): ?>
     <div class="product">
         <div class="container">
@@ -54,4 +45,4 @@
         </div>
     </div>
 <?php endif; ?>
-<!--product-end-->
+

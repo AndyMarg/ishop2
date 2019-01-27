@@ -5,7 +5,9 @@ namespace app\controllers;
 
 use app\models\Category;
 use app\models\Currencies;
+use app\models\ProductsFiltered;
 use app\models\ProductsForCategory;
+use core\base\View;
 
 class CategoryController extends AppController
 {
@@ -15,15 +17,21 @@ class CategoryController extends AppController
         $category = new Category($this->getRoute()['alias']);
 
         $page = (int) filter_input(INPUT_GET, 'page') ?: 1;
-        $products = new ProductsForCategory($category->id, $page);
+        $filters = filter_input(INPUT_GET, 'filter') ?: null;
+
         $currency = (new Currencies())->current;
 
-        if (!empty($_GET['filter'])) {
-            $filters = $_GET['filter'];
+        if ($filters) {
+            $filter_ids = explode(',', $filters);
+            $products = new ProductsFiltered($category->id, $filter_ids, $page);
+        } else {
+            $products = new ProductsForCategory($category->id, $page);
         }
 
+        // если запрос ajax и запрошена фильтрация товаров
         if ($this->isAjax()) {
-            var_dump($filters);
+            $num_in_row = 3;
+            echo View::fragment('products',compact(['products', 'currency', 'num_in_row']));
             die;
         }
 
