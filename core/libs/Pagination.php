@@ -91,6 +91,12 @@ class Pagination
         $uri = preg_replace("#page=\d+&?#", '', $uri);
         $uri = preg_replace("#(\/|\/\?|&)$#",'',$uri);
         $uri .= (preg_match("#\/?\?#", $uri)) === 1 ? '&' : '/?';
+
+        preg_match_all("#filter=[\d,&]#", $uri, $matches);
+        if (count($matches[0]) > 1) {
+            $uri = preg_replace("#filter=[\d,&]+#", '', $uri, 1);
+        }
+
         return urldecode($uri);
     }
 

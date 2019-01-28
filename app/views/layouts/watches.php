@@ -8,6 +8,7 @@ $currency = (new app\models\Currencies())->current;
 <html>
 <head>
     <base href="/">
+    <link rel="shortcut icon" href="images/star.png" type="image/png">
     <?= $this->getMetaHtml(); ?>
     <script src="js/jquery-1.11.0.min.js"></script>
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>

@@ -10,7 +10,7 @@ class Filter extends Widget
 {
     public function __construct() {
         $options = [
-            "cachePeriod" => "120"
+//            "cachePeriod" => "120"
         ];
 
         parent::__construct('filter', $options);
@@ -20,9 +20,12 @@ class Filter extends Widget
      * Виртуальный метод. Исполнение виджета
      */
     protected function run() {
-        $filters = new Filters();
+        $filter_get = filter_input(INPUT_GET, 'filter') ?: null;
 
-        $this->setData(compact('filters'));
+        $filters = new Filters();
+        $filter_active = ($filter_get ? explode(',', $filter_get) : []);
+
+        $this->setData(compact('filters', 'filter_active'));
         parent::run();
     }
 
