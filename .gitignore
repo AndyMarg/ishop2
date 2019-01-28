@@ -71,4 +71,5 @@ fabric.properties
 /vendor/
 /web/
 /.idea/
-/tmp/cache
+/tmp/cache/
+/public/adminlte/
