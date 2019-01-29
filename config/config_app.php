@@ -49,7 +49,8 @@ return
             "debug" => true
         ],
         "defaults" => [
-            "layout" => "watches"
+            "layout" => "watches",
+            "admin_layout" => "admin"
         ],
         "widgets" => ['currency','filter']
     ];

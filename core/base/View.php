@@ -32,7 +32,11 @@ class View {
         if ($layout ===  false)  {
             $this->layout = false;
         } else {
-            $this->layout = $layout ? : Application::getConfig()->defaults->layout;
+            if ($this->controller->isAdmin()) {
+                $this->layout = $layout ?: Application::getConfig()->defaults->admin_layout;
+            } else {
+                $this->layout = $layout ?: Application::getConfig()->defaults->layout;
+            }
         }
         // мета
         $this->meta['title'] = $config->defaults->meta->title;
