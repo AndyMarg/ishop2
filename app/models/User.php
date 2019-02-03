@@ -76,4 +76,12 @@ class User extends ModelDb
         unset($_SESSION['user']);
     }
 
+    /**
+     * @return bool True, if user is Admin
+     */
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
 }

@@ -60,7 +60,6 @@ class UserController extends AppController
         if (!empty($_POST)) {
             $login = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-//            $mode = filter_input(INPUT_GET, 'mode', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
             if ($login && $password) {
                 $user = user::get($login);

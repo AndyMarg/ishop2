@@ -8,6 +8,6 @@ class MainController extends AdminController
 
     public function indexAction()
     {
-        
+        $this->getView()->setMeta("Панель администрирования");
     }
 }
