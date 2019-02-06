@@ -99,6 +99,7 @@ class ModelListDb extends ModelList {
             $params = $this->options['params'];
         }
         // меняем строку запроса для получения количества строк
+        $sql = str_replace("\r\n", ' ', $sql);
         $sql = preg_replace("#(select)(.*?)(from .*)#i", "$1 count(*) as cnt $3", $sql);
         return Application::getDb()->query($sql, $params)[0]['cnt'];
     }

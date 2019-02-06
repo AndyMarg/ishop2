@@ -25,18 +25,18 @@ class Order extends ModelDb
      * @param Cart $cart Корзина
      * @throws \Exception
      */
-    public function __construct($data, User $user, Cart $cart)
+    public function __construct($data, User $user = null, Cart $cart = null)
     {
         $this->cart = $cart;
         
         $this->user = $user;
 
-        if (gettype($data) === 'array') {
+        if (gettype($data) === 'array' && $this->user) {
             $data['user_id'] = $this->user->id;
         }
 
         $options = [
-            'sql' => "select * from user where id = :id",
+            'sql' => "select * from `order` where id = :id",
             'params' => [':id' => $data],
             'storage' => 'order',
             'table' => "`order`",

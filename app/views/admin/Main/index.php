@@ -6,7 +6,7 @@
 <section class="content-header">
     <h1>Панель управления </h1>
     <ol class="breadcrumb">
-        <li><a href="<?=$admin_path?>"><i class="fa fa-home"></i>Главная</a></li>
+        <li><a href="<?=$admin_path?>"><i class="fa fa-home"></i> Главная</a></li>
     </ol>
 </section>
 
@@ -21,7 +21,7 @@
                 <div class="icon">
                     <i class="ion ion-bag"></i>
                 </div>
-                <a href="<?=$admin_path?>/order" class="small-box-footer">Все заказы <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="<?=$admin_path?>/orders" class="small-box-footer">Все заказы <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-xs-6">

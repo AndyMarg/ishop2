@@ -14,9 +14,12 @@ class Currency extends AppModel {
      */
     public function __construct($data) {
         $id = gettype($data) === 'integer' ? $data : NULL;
-         $options = [
+        $code = gettype($data) === 'string' ? $data : NULL;
+        $options = [
             'sql' => 'select * from currency where id = :id',
-            'params' => [':id' => $id]
+            'params' => [':id' => $id],
+            'sql2' => 'select * from currency where code = :code',
+            'params2' => [':code' => $code]
         ];
         parent::__construct($data, $options);
     }

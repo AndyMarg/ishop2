@@ -70,7 +70,6 @@ class Pagination
         return '<ul class="pagination">' .$begin.$back.$left2.$left1. '<li class="active"><a>'.$this->current.'</a></li>' .$right1.$right2.$forward.$end. '</ul>';
     }
 
-
     /**
      * Уточнить текущую страницу
      * @param int $current

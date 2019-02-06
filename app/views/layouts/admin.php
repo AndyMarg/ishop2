@@ -335,7 +335,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?=$admin_path?>/order">
+                    <a href="<?=$admin_path?>/orders">
                         <i class="fa fa-shopping-cart"></i> <span>Заказы</span>
                     </a>
                 </li>
