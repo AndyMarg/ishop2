@@ -9,7 +9,7 @@ class OrderItems extends ModelListDb
 {
     public function __construct(int $order_id) {
         $options = [
-            'sql'  => "select * from order_product where order_id = :order_id",
+            'sql'  => "select op.*, round(qty*price,2) summa from order_product op where order_id = :order_id",
             'params' => [':order_id' => $order_id],
             'class' => 'OrderItem'
         ];

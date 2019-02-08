@@ -14,7 +14,7 @@ class OrderItem extends ModelDb
     public function __construct($data)
     {
         $options = [
-            'sql' => "select * from order_product where id = :id",
+            'sql' => "select op.*, qty*price summa from order_product op where id = :id",
             'params' => [':id' => $data],
             'storage' => 'order_item',
             'table' => "`order_product`",

@@ -35,8 +35,17 @@ class Order extends ModelDb
             $data['user_id'] = $this->user->id;
         }
 
+        $sql = <<<SQL
+select o.*, round(c.summa*r.value,2) summa, c.cnt, o.currency currency_code, u.name user
+from `order` o
+       join `user` u on u.id = o.user_id
+       join currency r on r.code = o.currency
+       join (select order_id, sum(qty * price) summa, count(*) cnt from order_product group by order_id) c on c.order_id = o.id
+where o.id = :id
+SQL;
+
         $options = [
-            'sql' => "select * from `order` where id = :id",
+            'sql' => $sql,
             'params' => [':id' => $data],
             'storage' => 'order',
             'table' => "`order`",

@@ -27,6 +27,7 @@ $www_path = \core\base\Application::getConfig()->dirs->www;
                                 <th>Статус</th>
                                 <th>Сумма заказа</th>
                                 <th>Валюта заказа</th>
+                                <th>Позиций в заказе</th>
                                 <th>Дата создания</th>
                                 <th>Дата изменения</th>
                                 <th>Действия</th>
@@ -44,6 +45,7 @@ $www_path = \core\base\Application::getConfig()->dirs->www;
                                 <td><?=$order->status == '0' ? 'Новый' : 'Завершен'?></td>
                                 <td><?=$order->summa?></td>
                                  <td><?=$order->currency_code?></td>
+                                <td><?=$order->cnt?></td>
                                 <td><?=$order->date?></td>
                                 <td><?=$order->update_at?></td>
                                 <td><a href="<?=$admin_path?>/order/view?id=<?=$order->id?>"><i class="fa fa-fw fa-eye"></i></a></td>
