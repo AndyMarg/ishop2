@@ -59,7 +59,7 @@ class Application {
      * @param string $app_root Корень приложения в файловой системе
      * @param string $app_config_file Файл с конфигурационными параметрами.
      */
-    public static function Init(string $app_root, string $app_config_file = "") 
+    public static function Init(string $app_root, string $app_config_file = "")
     {
         // создаем объект конфигурации
         $config = Config::getInstance();
@@ -78,8 +78,6 @@ class Application {
         // инициализируем роутер
         self::$router = Router::getInstance();
         self::$router->Init();
-        // передаем запрос на обработку маршрутизатору
-        self::$router->dispatch(Utils::getUrl());
     }
     
 } 

@@ -382,6 +382,27 @@ $admin_path = \core\base\Application::getConfig()->dirs->admin;
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+        <?php if (isset($_SESSION['errors'])): ?>
+            <div class="alert alert-danger">
+                <?php foreach ($_SESSION['errors'] as $error_list): ?>
+                    <ul>
+                        <?php foreach ($error_list as $error): ?>
+                            <li><?= $error ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endforeach; ?>
+            </div>
+            <?php unset($_SESSION['errors']); ?>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['success'])): ?>
+            <div class="alert alert-success">
+                <?= $_SESSION['success'] ?>
+            </div>
+            <?php unset($_SESSION['success']); ?>
+        <?php endif; ?>
+
+
         <?=$content?>
     </div>
     <!-- /.content-wrapper -->
@@ -611,5 +632,6 @@ if (core\base\Application::getConfig()->db->debug) {
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <script src="bower_components/ckeditor/ckeditor.js"></script>
+<script src="<?=$www_path?>/js/main.js"></script>
 </body>
 </html>

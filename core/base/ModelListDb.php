@@ -67,6 +67,7 @@ class ModelListDb extends ModelList {
         $sql = $this->options['sql'];
         // диапазон выборки строк
         $limit = '';
+        $this->page = 1;
         if ($this->needPagination && key_exists('page', $this->options) && $this->options['page'] !== false) {
             $this->page = $this->options['page'];
             if ($this->page < 1) $this->page = 1;

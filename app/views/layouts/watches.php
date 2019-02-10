@@ -141,8 +141,6 @@ $currency = (new app\models\Currencies())->current;
                         </div>
                         <?php unset($_SESSION['success']); ?>
                     <?php endif; ?>
-
-
                 </div>
             </div>
         </div>

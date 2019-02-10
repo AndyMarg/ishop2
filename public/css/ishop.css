@@ -225,3 +225,14 @@ section.sky-form div.row1.scroll-pane div.col.col-4 label.checkbox {
     top: 50vh;
     margin: -100px 0 0 -100px;
 }
+
+/* для админки*/
+.row.admin-header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.row.admin-header .breadcrumb {
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: transparent;
+}

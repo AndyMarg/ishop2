@@ -1,3 +1,9 @@
+// Delete warning
+$('.delete-warning').click(function () {
+    let ok = confirm("Подтвердите действие");
+    if (!ok) return false;
+});
+
 // product modifications changed
 $('.available select').on('change', function() {
     let price = $(this).find('option').filter(':selected').data('price');
@@ -225,3 +231,5 @@ function showFilteredGoods() {
         window.location = location.pathname;
     }
 }
+
+

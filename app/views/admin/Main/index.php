@@ -4,10 +4,16 @@
 ?>
 
 <section class="content-header">
-    <h1>Панель управления </h1>
-    <ol class="breadcrumb">
-        <li><a href="<?=$admin_path?>"><i class="fa fa-home"></i> Главная</a></li>
-    </ol>
+    <div class="row admin-header">
+        <div class="col-md-6">
+            <h3>Панель управления </h3>
+        </div>
+        <div class="col-md-6 text-right">
+            <ol class="breadcrumb">
+                <li><a href="<?=$admin_path?>"><i class="fa fa-home"></i> Главная</a></li>
+            </ol>
+        </div>
+    </div>
 </section>
 
 <section class="content">

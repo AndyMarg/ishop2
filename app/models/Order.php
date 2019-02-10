@@ -6,6 +6,7 @@ namespace app\models;
 use core\base\Application;
 use core\base\ModelDb;
 use core\libs\Utils;
+
 use Swift_Mailer;
 use Swift_Message;
 use Swift_SmtpTransport;
@@ -49,7 +50,8 @@ SQL;
             'params' => [':id' => $data],
             'storage' => 'order',
             'table' => "`order`",
-            'insert_fields' => ['user_id', 'currency', 'note']
+            'insert_fields' => ['user_id', 'currency', 'note'],
+            'update_fields' => ['status','update_at','currency','note']
         ];
 
         parent::__construct($data, $options);
@@ -62,8 +64,10 @@ SQL;
      */
     public function save()
     {
+        $insert_mode = !isset($this->data['id']);
         $result = parent::save();
-        if ($result) {
+        // если новый заказ, то добавляем товары в заказ
+        if ($result && $insert_mode) {
             foreach ($this->cart->products as $product) {
                 $data['order_id'] = $this->id;
                 $data['product_id'] = $product['product_id'];
@@ -75,6 +79,22 @@ SQL;
             }
         }
         return $result;
+    }
+
+    /**
+     * Удалить заказ
+     * @return bool Успешность операции
+     */
+    public function delete()
+    {
+        $id = $this->data['id'] ?? null;
+        if ($id) {
+            Application::getDb()->execute(
+                'delete from order_product where product_id = :product_id', ['product_id' => $id]);
+            $result = parent::delete();
+            return $result;
+        }
+        return false;
     }
 
     /**

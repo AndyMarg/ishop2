@@ -4,12 +4,28 @@ $www_path = \core\base\Application::getConfig()->dirs->www;
 ?>
 
 <section class="content-header">
-    <h1>Заказ № <?=$order->id?></h1>
-    <ol class="breadcrumb">
-        <li><a href="<?= $admin_path ?>"><i class="fa fa-home"></i> Главная</a></li>
-        <li><a href="<?= $admin_path ?>/orders"><i class="fa fa-home"></i> Заказы</a></li>
-        <li class="active"> Заказ № <?= $order->id ?></li>
-    </ol>
+    <div class="row admin-header">
+        <div class="col-md-2">
+            <h3>Заказ № <?=$order->id?></h3>
+        </div>
+        <div class="col-md-4">
+            <a href="<?=$admin_path . '/order/change?id=' . $order->id . '&status=' . $order->status?>"
+               class="btn btn-success">
+               <?=$order->status == '0' ? 'Одобрить' : 'Вернуть на доработку'?>
+            </a>
+            <a href="<?=$admin_path . '/order/delete?id=' . $order->id?>"
+               class="btn btn-danger delete-warning">
+               Удалить
+            </a>
+        </div>
+        <div class="col-md-6 text-right">
+            <ol class="breadcrumb">
+                <li><a href="<?= $admin_path ?>"><i class="fa fa-home"></i> Главная</a></li>
+                <li><a href="<?= $admin_path ?>/orders"><i class="fa fa-shopping-cart"></i> Заказы</a></li>
+                <li class="active"> Заказ № <?= $order->id ?></li>
+            </ol>
+        </div>
+    </div>
 </section>
 
 <section class="content">
@@ -34,48 +50,63 @@ $www_path = \core\base\Application::getConfig()->dirs->www;
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<section class="content-header">
+    <div class="row admin-header">
+        <div class="col-md-12">
             <h3>Детали заказа</h3>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
             <div class="box">
                 <div class="box-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>ИД товара</th>
+                                <th class="text-center">ИД товара</th>
                                 <th>Наименование</th>
-                                <th>Кол-во</th>
-                                <th>Цена (<?=$order->currency_code?>)</th>
-                                <th>Сумма (<?=$order->currency_code?>)</th>
+                                <th class="text-center">Кол-во</th>
+                                <th class="text-center">Цена (<?=$order->currency_code?>)</th>
+                                <th class="text-center">Сумма (<?=$order->currency_code?>)</th>
                             </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                    $cnt = 0;
-                                    foreach ($order_items as $item):
-                                        $cnt += $item->qty;
-                                 ?>
-                                    <tr>
-                                    <td><?=$item->product_id?></td>
+                            <?php
+                            $cnt = 0;
+                            foreach ($order_items as $item):
+                                $cnt += $item->qty;
+                                ?>
+                                <tr>
+                                    <td class="text-center"><?=$item->product_id?></td>
                                     <td><?=$item->title?></td>
-                                    <td><?=$item->qty?></td>
-                                    <td><?=$item->price?></td>
-                                    <td><?=$item->summa?></td>
-                                    </tr>
-                                <?php endforeach;?>
-                                <tr class="active">
-                                    <td colspan="2"><b>ИТОГО</b></td>
-                                    <td><b><?=$cnt?></b></td>
-                                    <td></td>
-                                    <td><b><?=$order->summa?></b></td>
+                                    <td class="text-center"><?=$item->qty?></td>
+                                    <td class="text-center"><?=$item->price?></td>
+                                    <td class="text-center"><?=$item->summa?></td>
                                 </tr>
+                            <?php endforeach;?>
+                            <tr class="active">
+                                <td colspan="2" class="text-center"><b>ИТОГО</b></td>
+                                <td class="text-center"><b><?=$cnt?></b></td>
+                                <td></td>
+                                <td class="text-center"><b><?=$order->summa?></b></td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+
 </section>
 
 

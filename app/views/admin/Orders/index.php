@@ -4,11 +4,17 @@ $www_path = \core\base\Application::getConfig()->dirs->www;
 ?>
 
 <section class="content-header">
-    <h1>Список заказов</h1>
-    <ol class="breadcrumb">
-        <li><a href="<?= $admin_path ?>"><i class="fa fa-home"></i> Главная</a></li>
-        <li class="active"><i class="fa fa-shopping-cart"></i> Заказы</li>
-    </ol>
+    <div class="row admin-header">
+        <div class="col-md-6">
+            <h3>Список заказов</h3>
+        </div>
+        <div class="col-md-6 text-right">
+            <ol class="breadcrumb">
+                <li><a href="<?= $admin_path ?>"><i class="fa fa-home"></i> Главная</a></li>
+                <li class="active"><i class="fa fa-shopping-cart"></i> Заказы</li>
+            </ol>
+        </div>
+    </div>
 </section>
 
 <section class="content">
@@ -48,7 +54,16 @@ $www_path = \core\base\Application::getConfig()->dirs->www;
                                 <td><?=$order->cnt?></td>
                                 <td><?=$order->date?></td>
                                 <td><?=$order->update_at?></td>
-                                <td><a href="<?=$admin_path?>/order/view?id=<?=$order->id?>"><i class="fa fa-fw fa-eye"></i></a></td>
+                                <td>
+                                    <row>
+                                        <div class="col-md-6">
+                                            <a href="<?=$admin_path?>/order/view?id=<?=$order->id?>"><i class="fa fa-fw fa-eye"></i></a>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <a class="delete-warning" href="<?=$admin_path?>/order/delete?id=<?=$order->id?>"><i class="fa fa-fw fa-close text-danger"></i></a>
+                                        </div>
+                                    </row>
+                                </td>
                             </tr>
                             <?php endforeach; ?>
                             </tbody>

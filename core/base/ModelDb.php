@@ -78,21 +78,52 @@ abstract class ModelDb extends Model {
         $result = Application::getDb()->query($sql, $params);
         return $result ? $result[0] : [];
     }
-    
+
     /**
-     * Сохраняем данные модели в БД
+     * Удаляем модель
+     * @return bool Успешность операции
      */
-    public function save() {
-        if (key_exists('insert_fields', $this->options) && !empty($this->options['insert_fields'])) {
-            $fields = $this->options['insert_fields'];
+    public function delete()
+    {
+        $table = $this->options['table'] ?? null;
+        if (!isset($table)) return false;
+        $id_field = $this->options['id_field'] ?? 'id';
+
+        $sql = "delete from {$table} where {$id_field} = :{$id_field}";
+
+        $result = Application::getDb()->execute($sql, ["{$id_field}" => $this->id]);
+
+        return $result;
+    }
+
+
+    /**
+     * Добавляем / изменяем модель в БД
+     * @return bool Успешность операции
+     */
+    public function save()
+    {
+        $id = $this->data['id'] ?? null;
+        if ($id) {
+            $result = $this->update();
+        } else {
+            $result = $this->insert();
         }
+        return $result;
+    }
+
+    /**
+     * Добавляем модель в ДБ
+     * @return bool Успешность операции
+     */
+    private function insert()
+    {
+        $fields = $this->options['insert_fields'] ?? null;
         if (!isset($fields)) return false;
-        if (key_exists('table', $this->options) && !empty($this->options['table'])) {
-            $table = $this->options['table'];
-        }
+        $table = $this->options['table'] ?? null;
         if (!isset($table)) return false;
 
-        foreach ($this->asArray() as $field => $value) {
+        foreach ($this->data as $field => $value) {
             if (in_array($field, $fields)) {
                 $params[$field] = $value;
             }
@@ -115,6 +146,35 @@ abstract class ModelDb extends Model {
         return $result;
     }
 
+    /**
+     * Изменяем модель в БД
+     * @return bool Успешность операции
+     */
+    private function update()
+    {
+        $fields = $this->options['update_fields'] ?? null;
+        if (!isset($fields)) return false;
+        $table = $this->options['table'] ?? null;
+        if (!isset($table)) return false;
+        $id_field = $this->options['id_field'] ?? 'id';
+
+        foreach ($this->data as $field => $value) {
+            if (in_array($field, $fields)) {
+                $params[$field] = $value;
+            }
+        }
+
+        $sql = "update {$table} set ";
+        foreach ($params as $field => $value) {
+            $sql .= $field . '=:' . $field . ',';
+        }
+        $sql = substr($sql, 0, strlen($sql)-1) . ' where ' . $id_field . '=' . $this->id;
+
+        $result = Application::getDb()->execute($sql, $params);
+
+        return $result;
+    }
+    
     /**
      * Переопределяем метод суперкласса, добавляя валидацию данных в БД
      * @return bool True, если данные модели корректны
