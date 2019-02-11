@@ -382,7 +382,7 @@ $admin_path = \core\base\Application::getConfig()->dirs->admin;
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <?php if (isset($_SESSION['errors'])): ?>
+        <?php if (isset($_SESSION['errors'])):;?>
             <div class="alert alert-danger">
                 <?php foreach ($_SESSION['errors'] as $error_list): ?>
                     <ul>

@@ -236,3 +236,9 @@ section.sky-form div.row1.scroll-pane div.col.col-4 label.checkbox {
     margin-bottom: 0;
     background-color: transparent;
 }
+
+a.disabled {
+    pointer-events: none; /* делаем ссылку некликабельной */
+    cursor: default!important;  /* устанавливаем курсор в виде стрелки */
+    color: #ccc; /* цвет текста для нективной ссылки */
+}

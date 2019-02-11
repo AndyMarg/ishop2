@@ -9,6 +9,8 @@ namespace app\models;
  * @property string description
  * @property string keywords
  * @property int category_id
+ * @property int cnt_prod
+ * @property int cnt_subcategory
  */
 class Category extends AppModel {
 
@@ -18,15 +20,26 @@ class Category extends AppModel {
      * @throws \Exception
      */
     public function __construct($data) {
+
+        $sql = <<<SQL
+select c.*, ifnull(t1.cnt, 0) cnt_prod, ifnull(t2.cnt, 0) cnt_subcategory
+from category c
+    left join (select category_id, count(*) cnt from product group by category_id) t1 on c.id = t1.category_id
+    left join (select parent_id category_id, count(*) cnt from category group by parent_id) t2 on c.id = t2.category_id
+where c.id = :id
+SQL;
+
+
         if (gettype($data) === 'array') {
             $options = ["storage" => "category_{$data['id']}"];
         } else {
             $options = [
-                'sql' => 'select * from category where id = :id',
+                'sql' => $sql,
                 'params' => [':id' => $data],
                 'sql2' => "select * from category where alias = :alias",
                 'params2' => [':alias' => $data],
-                'storage' => "category_{$data}"
+                'storage' => "category_{$data}",
+                'table' => 'category'
             ];
         };
         parent::__construct($data, $options);
