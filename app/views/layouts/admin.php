@@ -618,7 +618,6 @@ if (core\base\Application::getConfig()->db->debug) {
 }
 ?>
 
-
 <!-- helper variables -->
 <script>
     let main_url = "<?=\core\base\Application::getRootURL()?>";
@@ -632,6 +631,6 @@ if (core\base\Application::getConfig()->db->debug) {
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <script src="bower_components/ckeditor/ckeditor.js"></script>
-<script src="<?=$www_path?>/js/main.js"></script>
+<script src="<?=$www_path?>/js/admin.js"></script>
 </body>
 </html>
