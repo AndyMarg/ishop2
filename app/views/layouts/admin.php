@@ -341,7 +341,7 @@ $admin_path = \core\base\Application::getConfig()->dirs->admin;
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="<?=$admin_path?>/category">Список категорий</a></li>
-                        <li><a href="<?=$admin_path?>/category/add">Добавить категориюй</a></li>
+                        <li><a href="<?=$admin_path?>/category/add">Добавить категорию</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -628,6 +628,8 @@ if (core\base\Application::getConfig()->db->debug) {
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<?=$www_path?>/js/validator.js"></script>
+
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <script src="bower_components/ckeditor/ckeditor.js"></script>

@@ -12,7 +12,7 @@ $categories = $categories->getFlatTree();
         <div class="col-md-6 text-right">
             <ol class="breadcrumb">
                 <li><a href="<?= $admin_path ?>"><i class="fa fa-home"></i> Главная</a></li>
-                <li class="active"><i class="fa fa-shopping-cart"></i> Категории</li>
+                <li class="active"><i class="fa fa-navicon"></i> Категории</li>
             </ol>
         </div>
     </div>

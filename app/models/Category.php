@@ -21,6 +21,10 @@ class Category extends AppModel {
      */
     public function __construct($data) {
 
+        $rules = [
+            'required' => [['title']]
+        ];
+
         $sql = <<<SQL
 select c.*, ifnull(t1.cnt, 0) cnt_prod, ifnull(t2.cnt, 0) cnt_subcategory
 from category c
@@ -30,7 +34,7 @@ where c.id = :id
 SQL;
 
 
-        if (gettype($data) === 'array') {
+        if (gettype($data) === 'array' && isset($data['id'])) {
             $options = ["storage" => "category_{$data['id']}"];
         } else {
             $options = [
@@ -39,7 +43,9 @@ SQL;
                 'sql2' => "select * from category where alias = :alias",
                 'params2' => [':alias' => $data],
                 'storage' => "category_{$data}",
-                'table' => 'category'
+                'table' => 'category',
+                'insert_fields' => ['title','alias','parent_id','keywords','description'],
+                'unique_fields' => ['alias' => 'Такой алиас уже есть']
             ];
         };
         parent::__construct($data, $options);
